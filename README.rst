@@ -1,6 +1,8 @@
 Point and Click King Arthur
 ===========================
 
+.. split here
+
 This project will be a children's "point and click" adventure based on the King Arthur legend. 
 The story follows King Arthur as he tries to collect all of his Knights of the Roundtable from their various quests and adventures. The player will play the role as King Arthur's royal investigator and will help the king along the way. 
 The game will be heavy in graphics which will add to the atmosphere and story. The game's primary coding language will be Python, using the PyGame library to aid in graphics management. The game's target audience and device is the OLPC and children. 
