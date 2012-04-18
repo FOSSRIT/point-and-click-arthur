@@ -1,0 +1,21 @@
+Thanks to the people who provided the free sounds that were
+used with arthur-point-and-click:
+
+Effects
+-------
+attack_strikes_armor.mp3, created by JPhilipp on freesound.org
+brass_fanfare.wav, created by Robinhood76 on freesound.org
+brass_intro.wav, created by klankbeeld on freesound.org
+castle_fanfare.wav, created by CGEffex on freesound.org
+drawbridge.wav, created by Sergenious on freesound.org
+galloping_horse.wav, created by prosounder on freesound.org
+kight-fight.wav, created by Robinhood76 on freesound.org
+medieval_trial.wav, created by Flick3r on freesound.org
+sword_impact.wav, crated by JoelAudio on freesound.org
+sword_pulled.wav, created by jobro on freesound.org
+
+Music
+-----
+crumhorn.wav, created by juskiddink on freesound.org
+
+If we have used your content and you'd prefer that we didn't, or if we can credit you in a different way, please let us know! :)
