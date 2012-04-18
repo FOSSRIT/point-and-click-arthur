@@ -10,7 +10,6 @@ The game will be heavy in graphics which will add to the atmosphere and story. T
 Goal
 ----
 Getting users to read/reading comprehension
-- Finding a state curriculum and grade level for medieval education. When is history learned?
 
 Story
 -----
@@ -39,7 +38,6 @@ http://schools.nycenet.edu/offices/teachlearn/ss/SocStudScopeSeq.pdf
 
 To Do
 -----
-- Research when and how medieval history and literature is taught in Fourth Grade
 - Find sound effects (must be public domain or free use!)
 - Find an artist to help us or figure out a way to create art assets and animations
 - Find a point and click engine for PyGame, or, a similar engine for another language that can be adapted to Python
