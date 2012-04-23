@@ -1,0 +1,180 @@
+Arthur: Where is that sword? Excalibur? Excalibur, where did you run off too.
+	Oh, hello. Have you seen a sword around here?
+
+Click Lake: You found the magic sword, Excalibur!
+
+Give Sword to Arthur: Yes! There it is, thank you! What is your name, so I may thank you proper?
+
+Type Name
+Arthur: Ah {Name}, that's a fine name. I, King Arthur of Britain, knight you Sir {Name}, the royal investigator.
+
+	Now then, we need to celebrate! Will you help me round up the Knights of the Round Table so we can have a proper party?
+Yes/No
+	Yes: Good! Let's head out
+	No: You're modest, but I insist, let's head out. 
+
+Three directions: Shack/East/West
+
+Merlin's Shack
+Arthur: Merlin my friend, how are you?
+Merlin: My dear Arthur, I am well. What do I owe this honor? 
+Arthur: My Royal Detective and I are on a journey to round up all the Knights of the Round table for a banquet. Will you be joining us?
+Merlin: I would be honored, but I cannot leave right now. I have lost my wand and I do not want to travel without it. If you can find my wand, I will certainly attend. 
+Arthur: Alright Merlin, I will look for your wand. 
+
+Click Soup: Merlin: Do be careful, that soup is very hot!
+	Arthur: It does smell delicious though.
+	Merlin: Hang on Arthur, I will give you some to go. Handle with care, it's piping!
+	Get Soup: Merlin gave you some hot soup! It smells great, but it's too hot to eat now, hang onto it. 
+
+Give Wand: Merlin: My wand! My wand! Thank you for your help. 
+	Let me see if it still works, ha!
+	{Armored Girdle Appears}
+	Well... that was unexpected. Here, Arthur, you probably could find a use for this
+Get Girdle: You got an armored... girdle? Who could possibly want this?
+	Merlin: Alright, my wand is working, for the most part
+	I will leave for the banquent, but please allow me to finish up some minor preparations first. 
+	
+
+Leave Shack
+
+Go East: Arthur: Hail! There is my bravest knight, Sir Lancelot du Lac. Fair Lancelot, how are you?
+	Lancelot: My lord, I wish to collect the Holy Grail in your glory, but I cannot without help.
+	Sir Bors and Sir Agravain were suppose to meet me here hours ago, but they are nowhere to be found
+	I do not wish to push onto you my burdens, but can you search for Bors and Agravain for me?
+	Arthur: We will
+
+Click on Wand: You found Merlin's Wand. How did this get here?
+
+Leave Forest
+
+Go West: Gawain: Arthur, I am in need of your immediate help!
+	This Green Knight has challenged me to a duel, but he has overpowered me!
+	I need some kind of special armor, and advantage over him!
+	Armor he would never see coming.
+	Arthur: We will keep our eyes open, be careful Gawain, we will return
+
+Click on Dove: Arthur: What a lovely bird. Let me see if it can follow me.
+		You got Pure White Dove! This bird trusts you, it seems to know you are special. 
+
+Give Armored Girdle: Gawain: This is the most curious of armor!
+		{Animations Gawain puttin on kneck}
+		Well, that seems to fit there.
+		Now, Green Knight, we fight!
+		{Small animation, Green Knight attacks Gawain, but he dodges, hits the Green Knight knocking him out}
+		Ha! Take that!
+		Arthur: Gawain, you have showed such bravery. 
+		I invite you to a banquent at Camelot this evening, will you be attending?
+		Gawain: But of course
+		
+{Path to castle is cleared, knight is gone}
+		Arthur: Now that this was taken care of, let us head forward. 
+
+Enter Castle: Arthur: Who is that laying on the ground?
+
+Click Man: Bors: Ugh... Arthur... is that you
+	 Arthur:Good Sir Bors, what happened!?
+	Bors: Arthur...
+	It has been hours...
+	Since I last ate
+	Arthur: Oh Bors, get up, Lancelot needs your help!
+	Bors: I cannot move, it pains me 
+	Arthur: Fine, we will find you a snack.
+Give Soup: Bors: SOUP! I love soup, give me!
+	Arthur: Patience Sir Bors, here
+	{Bors eats soup animation}
+	Bors: Oh, thank you Arthur. 
+	I will travel to Lancelot!
+	I hope he has some more food...
+
+Go to clearing
+	Arthur: An empty field. There doesn't seem to be anything here
+	But I hear some people in the distance, it might be worth it to travel in the forest or to that keep in the distance. 
+
+To Forest
+	Arthur: I could have sworn I head a voice in this direction
+	There doesn't seem to be anyone here
+	???: Hellow down there! Arthur, is that you?
+	Arthur: Who summons me, show yourself!
+	Agravain: Calm yourself Arthur, it's just me, Sir Agravain.
+	Agravain: I am up in this tree, looking for a certain dove
+	Arthur: Why Sir Agravain?
+	Agravain: This dove was a gift from a fair maiden
+	It is the purest of white, an immaculate bird!
+	Arthur: My friend here and I will help you search.
+	We shall return when we find a clue.
+
+Give Dove to Agravain
+	Agravain: Is that.... whoa!
+	{Agravain falls from tree}
+	Agravain: Oof... I'm okay. 
+	Is that the purest of white doves?
+	Arthur: It would seem so.
+	Agravain: Oh thank you! Now I can sleep at night, knowing my honor is protected
+	How embarassing would it be if I had lost a gift.
+	{Bird starts singing}
+	Agravain: Such a beatiful song.
+	My king, this bird is fit for someone of your splendor
+	Take this bird, a gift from a fair maiden, as a token of my gratitude.
+	Arthur: I humbly accept, thank you.
+	Agravain: OH! I just remembered I promised Lancelot I would meet him hours ago! 
+	Farewell Arthur, see you later
+	
+Get Singing Dove: You were given a Singing Dove. The dove is singing a lovely song, it could probably calm even the meanest spirits. 
+
+Back to Clearing
+
+Go to Keep
+
+	{Mordred and Monster fight}
+	Mordred: Savage worm, I am Mordred! Heir to the throne of Camelot
+	Bow before me and surrender!
+	Arthur: Mordred, what are you doing, be careful!
+	Mordred: Arthur, why are you here! 
+	Can't you see I am busy.
+	I don't need your help!
+	Arthur (to player): Such a foolish boy. 
+	It seems he is having some problems fighting that monster
+	I think if we could cause of distraction, Mordred could win
+	{Arthur yells} 
+	Arthur: That doesn't seem to have worked. 
+	It would seem the two are too busy to notice, we need to find a different sort of noise
+	
+Use Singing Dove: {The bird flies to a branch and begins singing}
+	{Mordred and the Monster look up, the monster stares at the bird}
+	Mordred: HA! Take this
+	{He stabs his sword into the monster, who falls over}
+	Morded" Farewell savage monster
+	Arthur, did you see that, I bested that monster with no problems
+	I didn't need your help, see?
+	Arthur: Of course Morded...
+	Hey, there's a banquent tonight at Camelot, you should attend
+	Mordred: We'll see
+	{Mordred leaves}
+	Arthur: We have all the knights!
+	We should head back and help Lancelot, he might need more help.
+
+Go back to Lancelot (forest background shows sunset slightly)
+	Lancelot: Bors, Agravain... what took you so long?
+	Bors: Sorry sir, I was fighting a bear!
+	Agravain: You dope, you were probably napping
+	Lancelot: Enough! Now that you two are here, we can finally look for the grail
+	Oh, Arthur
+	Hello my king, did you want to help us look for the grail?
+	Arthur: But of course, with {Name} by my side this should be no problem. 
+
+{In this portion, the game opens to a new forest with interactive things sprinkled on it. The grail is hidden in one of these objects, chosen randomly}
+Get Grail: You found the Holy Grail. Camelot will be known through the lands as the home to this spectacular piece of history!
+
+	Arthur: {Name} You have truly done Camelot a great service. 
+	Your investigation skills and ability to pick up on clues is unmatched
+	I am honored to call you a knight of my round table
+	Let us feast!
+
+{scene of long table at a castle, sprites animating showing activity, all old characters (except monster/green knight) are present}
+
+	Narration: Arthur and his Round Table celebrate your glories
+	You have completed the investigation and found all of Arthur's knights
+	Now rest brave hero, you have earned it.
+
+{Credits!}
