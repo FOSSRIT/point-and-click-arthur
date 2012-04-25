@@ -22,11 +22,7 @@ imageclicked = False
 soundclicked = False
 animclicked = False
 
-if(endGame == True):
-    pygame.quit()
-    sys.exit()
-	
-	
+
 def waitForPlayerToPressKey():
     while True:
         for event in pygame.event.get():
@@ -36,8 +32,8 @@ def waitForPlayerToPressKey():
                 if event.key == K_ESCAPE: # pressing escape quits
                     endGame = true
                 return
-				
-				
+
+
 def drawText(text, font, surface, x, y):
     textobj = font.render(text, 1, TEXTCOLOR)
     textrect = textobj.get_rect()
@@ -88,7 +84,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
     def render(self, screen):
             self.update(pygame.time.get_ticks())
             windowSurface.blit(self.image, self.location)
-	
+
 pygame.init()
 mainClock = pygame.time.Clock()
 windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
@@ -103,13 +99,11 @@ drawText('Our Prototype', font, windowSurface, (WINDOWWIDTH / 3), (WINDOWHEIGHT 
 drawText('Press Any Key To Start', font, windowSurface, (WINDOWWIDTH / 3) - 30, (WINDOWHEIGHT / 3) + 50)
 pygame.display.update()
 waitForPlayerToPressKey()
-arthur_images = load_sliced_sprites(16, 34, 'arthur\\art\\animation.png')
+arthur_images = load_sliced_sprites(16, 34, 'animation.png')
 sprites	= []
 sprites.append(AnimatedSprite(arthur_images, 15))
 
-for sprite in sprites:
-    sprite.location = (100,100)
-    sprite.render(windowSurface)
+
 
 while (endGame ==False):
     windowSurface.fill(BACKGROUNDCOLOR)
@@ -132,8 +126,10 @@ while (endGame ==False):
     elif soundclicked == False:
         pygame.mixer.stop()
 
-    #if animclicked == True:
-        
+    if animclicked == True:
+        for sprite in sprites:
+            sprite.location = (100,100)
+            sprite.render(windowSurface)
     #elif animclicked == False:
         #code to stop animation
     
@@ -168,4 +164,6 @@ while (endGame ==False):
                 animclicked = True
     
     pygame.display.update()
-    
+
+if(endGame == True):
+    pygame.quit()
