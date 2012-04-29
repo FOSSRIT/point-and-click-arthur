@@ -1,21 +1,26 @@
 Point-and-Click-Arthur makes use of various images licensed for free public use. Below, we credit the creators of these graphics.
 
-If there isn't credit given for an image, we haven't found one yet.
-
 Background images
 -----------------
-* Merlin's shack
 * forest.jpg (imagesfrombulgaria.com/d/4698-6/Forest-03.jpg)
-* Forest at sunset
+* forest_late.jpg (http://s0.geograph.org.uk/photos/04/30/043064_b7437003.jpg)
 * forest_path.jpg (s0.geograph.org.uk/photos/45/65/456553_6738ffca.jpg)
 * forest_clearing.jpg (s0.geograph.org.uk/photos/49/47/494782_4d528659.jpg)
 * forest_clearing2.jpg (s0.geograph.org.uk/photos/49/66/496669_9781506a.jpg)
+* forest_pond.jpg (http://s0.geograph.org.uk/geophotos/01/19/37/1193726_095ccfe5.jpg)
 * forest_green.jpg (public-domain-image.org/nature-landscape/forest/...)
-* Castle
-* Path to castle
-* Castle clearing
-* Keep
-* Camelot feast hall (castle setting)
+* Castle -- TODO - add attribution for the image we already have!
+* castle_path.jpg (http://s0.geograph.org.uk/geophotos/01/85/67/1856785_ccdb49b9.jpg)
+* castle_field.jpg (s0.geograph.org.uk/photos/06/99/069936_0d23ff13.jpg)
+* keep_field.jpg (http://s0.geograph.org.uk/geophotos/01/67/37/1673769_c2afa72b.jpg)
+* castle_hall.jpg (http://s0.geograph.org.uk/geophotos/01/37/86/1378694_f87691ba.jpg)
+* castle_door.jpg (http://s0.geograph.org.uk/geophotos/02/38/75/2387535_9bb75eb4.jpg)
+* castle_pond.jpg (http://s0.geograph.org.uk/geophotos/01/46/42/1464252_65285cb0.jpg)
+* castle_banquet_hall.jpg (http://2.bp.blogspot.com/_QcNXfZaaqoo/TULF1cDwMlI/AAAAAAAAA1w/Tk8gW7nGkhs/s1600/Blackfriars%2BBanquet%2BHall%2B%2528low%2Bres%2529.jpg)
+* cliff_hut.jpg (http://s0.geograph.org.uk/photos/89/93/899353_493108a5.jpg)
+* keep_moss.jpg (http://i.images.cdn.fotopedia.com/flickr-3579199547-hd/Castles_of_Scotland/Argyll_and_Bute/Dunollie_Castle/Dunollie_Castle.jpg)
+* shack_day.jpg (http://s0.geograph.org.uk/geophotos/01/36/90/1369016_e1a85ae8.jpg)
+* shack_night.jpg (http://s0.geograph.org.uk/photos/00/06/000609_9af78f44.jpg)
 
 Sprites
 -------
