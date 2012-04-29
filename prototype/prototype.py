@@ -170,7 +170,7 @@ while (endGame ==False):
     makeText = pygame.draw.rect(windowSurface,BLUE,(400,100,20,20))
     makeImage = pygame.draw.rect(windowSurface,GREEN,(350,100,20,20))
     makeAnim = pygame.draw.rect(windowSurface,RED,(300,100,20,20))
-    makeSound = pygame.draw.rect(windowSurface,WHITE,(450,100,20,20))
+    #makeSound = pygame.draw.rect(windowSurface,WHITE,(450,100,20,20))
     mouseRect = pygame.draw.rect(windowSurface,BACKGROUNDCOLOR,(0,0,1,1))
     
     if textclicked == False:
@@ -181,8 +181,8 @@ while (endGame ==False):
     if imageclicked == True:
         windowSurface.blit(image, (400,200))
 
-    if soundclicked == True:
-        pygame.mixer.Sound("sound.wav").play()
+    #if soundclicked == True:
+        #pygame.mixer.Sound("sound.wav").play()
     #elif soundclicked == False: had some problems with this code during testing, was causing crashes, commented it out for now
         # pygame.mixer.stop()
 
@@ -205,22 +205,22 @@ while (endGame ==False):
         if mouseRect.colliderect(makeText):
             if textclicked == True:
                 textclicked = False
-            elif textclicked == False:
+            if textclicked == False:
                 textclicked = True
         if mouseRect.colliderect(makeImage):
             if imageclicked == True:
                 imageclicked = False
-            elif imageclicked == False:
+            if imageclicked == False:
                 imageclicked = True
-        if mouseRect.colliderect(makeSound):
-            if soundclicked == True:
-                soundclicked = False
-            elif soundclicked == False:
-                soundclicked = True
+        #if mouseRect.colliderect(makeSound):
+            #if soundclicked == True:
+               #soundclicked = False
+            #elif soundclicked == False:
+                #soundclicked = True
         if mouseRect.colliderect(makeAnim):
             if animclicked == True:
                 animclicked = False
-            elif animclicked == False:
+            if animclicked == False:
                 animclicked = True
     
     pygame.display.update()
