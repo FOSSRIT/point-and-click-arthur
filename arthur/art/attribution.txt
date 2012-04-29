@@ -5,8 +5,12 @@ If there isn't credit given for an image, we haven't found one yet.
 Background images
 -----------------
 * Merlin's shack
-* Forest
-    * Forest at sunset
+* forest.jpg (imagesfrombulgaria.com/d/4698-6/Forest-03.jpg)
+* Forest at sunset
+* forest_path.jpg (s0.geograph.org.uk/photos/45/65/456553_6738ffca.jpg)
+* forest_clearing.jpg (s0.geograph.org.uk/photos/49/47/494782_4d528659.jpg)
+* forest_clearing2.jpg (s0.geograph.org.uk/photos/49/66/496669_9781506a.jpg)
+* forest_green.jpg (public-domain-image.org/nature-landscape/forest/...)
 * Castle
 * Path to castle
 * Castle clearing
