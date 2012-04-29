@@ -1,0 +1,36 @@
+Point-and-Click-Arthur makes use of various images licensed for free public use. Below, we credit the creators of these graphics.
+
+If there isn't credit given for an image, we haven't found one yet.
+
+Background images
+-----------------
+* Merlin's shack
+* Forest
+    * Forest at sunset
+* Castle
+* Path to castle
+* Castle clearing
+* Keep
+* Camelot feast hall (castle setting)
+
+Sprites
+-------
+* Excalibur
+* Holy grail
+* Dove
+* Royal Investigator
+* Lancelot
+* King Arthur
+* Mordred
+* Monster (fought by Mordred)
+* Agravain
+* Bors
+* Green Knight
+* Gawain
+* Merlin
+* Wand
+* Soup
+* Lake
+* Magic girdle
+
+If we have used your content and you'd prefer that we didn't, or you'd like us to credit you in a different way, please let us know!
