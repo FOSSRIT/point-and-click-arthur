@@ -18,6 +18,7 @@ BLUE = (0,0,255)
 
 CurrentDoveX = 1035 #used to control movement of animation
 CurrentDoveY = 450
+KnightX = 100
 
 startUp = False
 doveHover = False
@@ -26,6 +27,8 @@ textclicked = False
 imageclicked = False
 soundclicked = False
 animclicked = False
+
+
 
 def drawText(text, font, surface, x, y):
     textobj = font.render(text, 1, TEXTCOLOR)
@@ -85,7 +88,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
         # Track the time we started, and the time between updates.
         # Then we can figure out when we have to switch the image.
         self._start = pygame.time.get_ticks()
-        self._delay = 3000 / fps
+        self._delay = 2000 / fps
         self._last_update = 0
         self._frame = 0
 
@@ -132,7 +135,7 @@ start_dove = load_sliced_sprites(48, 48, 'birdsprite.png')
 doveSprites = []
 doveSprites.append(AnimatedDove(start_dove, 15))
 
-arthur_images = load_sliced_sprites(16, 34, 'animation.png')
+arthur_images = load_sliced_sprites(72, 104, 'walktest.png')
 sprites	= []
 sprites.append(AnimatedSprite(arthur_images, 15))
 
@@ -185,13 +188,10 @@ while (endGame ==False):
         #pygame.mixer.Sound("sound.wav").play()
     #elif soundclicked == False: had some problems with this code during testing, was causing crashes, commented it out for now
         # pygame.mixer.stop()
-
     if animclicked == True:
         for sprite in sprites:
-            sprite.location = (100,100)
+            sprite.location = (KnightX,800)
             sprite.render(windowSurface)
-    #elif animclicked == False:
-        #code to stop animation
     
     for event in pygame.event.get():
         if event.type == pygame.MOUSEMOTION:
