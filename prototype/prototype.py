@@ -28,14 +28,41 @@ imageclicked = False
 soundclicked = False
 animclicked = False
 
-
-
 def drawText(text, font, surface, x, y):
     textobj = font.render(text, 1, TEXTCOLOR)
     textrect = textobj.get_rect()
     textrect.topleft = (x, y)
     surface.blit(textobj, textrect)
 
+def titleScreen():
+    global startUp
+    global endGame
+    global CurrentDoveX
+    global CurrentDoveY
+    global doveHover
+    while(startUp == True):
+        if(endGame == False):
+            screen.blit(background1, backgroundRect)
+            for sprite in doveSprites:
+                sprite.location = (CurrentDoveX,CurrentDoveY)
+                sprite.render(windowSurface)
+            for event in pygame.event.get():
+                if event.type == KEYDOWN: #moves to next screen when any button is pressed
+                    startUp = False
+                if event.type == QUIT: #fixes crashing at exit on this screen
+                    endGame = True
+                    pygame.quit()
+                if event.type == pygame.MOUSEMOTION: # hover over bird
+                    mX,mY = event.pos
+                    mouseRect = pygame.draw.rect(windowSurface,BACKGROUNDCOLOR,(mX,mY,1,1))
+                    if mouseRect.colliderect(doveRect): #draws a "hitbox" for the bird and checks to see if the mouse collides with it
+                        doveHover = True
+                if event.type == pygame.MOUSEBUTTONDOWN: #moves to next screen on click
+                    startUp = False
+            if (doveHover == True): #moves the dove's position
+                CurrentDoveX -= 5
+                CurrentDoveY -= 1
+            pygame.display.update()
 def load_sliced_sprites(w, h, filename):
     '''
     Specs :
@@ -50,6 +77,13 @@ def load_sliced_sprites(w, h, filename):
     for i in xrange(int(master_width/w)):
     	images.append(master_image.subsurface((i*w,0,w,h)))
     return images
+
+def knightWalk():
+    global KnightX
+    if (KnightX <= 800):
+        return True
+    elif(KnightX>800):
+        return False
 
 class AnimatedDove(pygame.sprite.Sprite):
     def __init__(self, images, fps = 10):
@@ -96,20 +130,27 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.update(pygame.time.get_ticks())
 
     def update(self, t):
+        global KnightX
         # Note that this doesn't work if it's been more that self._delay
         # time between calls to update(); we only update the image once
         # then, but it really should be updated twice.
 
+
         if t - self._last_update > self._delay:
-            self._frame += 1
-            if self._frame >= len(self._images): self._frame = 0
+            if (knightWalk() == True): #when hovered over
+                self._frame += 1
+                if self._frame >= len(self._images):
+                    self._frame = 1 #Does not loop at frame 0! Starts at second frame because frame 0 is idle
+                KnightX += 10
+                
+            if (knightWalk() == False):
+                self._frame = 0 #idle. Could probably edit this slightly and make an idle animation
             self.image = self._images[self._frame]
             self._last_update = t
             
     def render(self, screen):
             self.update(pygame.time.get_ticks())
             windowSurface.blit(self.image, self.location)
-
 pygame.init()
 mainClock = pygame.time.Clock()
 windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
@@ -121,8 +162,6 @@ image = pygame.image.load("image.png")
 background1 = pygame.image.load("kingarthur.png")
 size = (width, height) = background1.get_size()
 screen = pygame.display.set_mode(size)
-
-font = pygame.font.SysFont(None, 48)
 
 #drawText('Our Prototype', font, windowSurface, (WINDOWWIDTH / 3), (WINDOWHEIGHT / 3))
 #drawText('Press Any Key To Start', font, windowSurface, (WINDOWWIDTH / 3) - 30, (WINDOWHEIGHT / 3) + 50)
@@ -141,32 +180,8 @@ sprites.append(AnimatedSprite(arthur_images, 15))
 
 mouseRect = pygame.draw.rect(windowSurface,BACKGROUNDCOLOR,(0,0,1,1))
 doveRect = pygame.draw.rect(windowSurface,BACKGROUNDCOLOR,(CurrentDoveX,CurrentDoveY,48,48))
-
-while (startUp == True):
-                
-    if(endGame == False):
-        screen.blit(background1, backgroundRect)
-        for sprite in doveSprites:
-            sprite.location = (CurrentDoveX,CurrentDoveY)
-            sprite.render(windowSurface)
-        for event in pygame.event.get():
-            if event.type == KEYDOWN: #moves to next screen when any button is pressed
-                startUp = False
-            if event.type == QUIT: #fixes crashing at exit on this screen
-                endGame = True
-                pygame.quit()
-            if event.type == pygame.MOUSEMOTION: # hover over bird
-                mX,mY = event.pos
-                mouseRect = pygame.draw.rect(windowSurface,BACKGROUNDCOLOR,(mX,mY,1,1))
-                if mouseRect.colliderect(doveRect): #draws a "hitbox" for the bird and checks to see if the mouse collides with it
-                    doveHover = True
-            if event.type == pygame.MOUSEBUTTONDOWN: #moves to next screen on click
-                startUp = False
-        if (doveHover == True): #moves the dove's position
-            CurrentDoveX -= 5
-            CurrentDoveY -= 1
-                
-        pygame.display.update()
+font = pygame.font.SysFont(None, 48)
+titleScreen()
 
 while (endGame ==False):
     windowSurface.fill(BACKGROUNDCOLOR)
@@ -189,9 +204,9 @@ while (endGame ==False):
     #elif soundclicked == False: had some problems with this code during testing, was causing crashes, commented it out for now
         # pygame.mixer.stop()
     if animclicked == True:
-        for sprite in sprites:
-            sprite.location = (KnightX,800)
-            sprite.render(windowSurface)
+            for sprite in sprites:
+                sprite.location = (KnightX,800)
+                sprite.render(windowSurface)
     
     for event in pygame.event.get():
         if event.type == pygame.MOUSEMOTION:
