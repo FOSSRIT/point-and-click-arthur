@@ -8,66 +8,39 @@ WINDOWHEIGHT = 900
 
 class Everything:
     windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT));
-    font = pygame.font
-    TEXTCOLOR = (255, 255, 255)
     def __init__(self):
-        pygame.init()
-        pygame.font.init()
-        self.font = pygame.font.SysFont(None, 48)
-        mainClock = pygame.time.Clock()
-        pygame.display.set_caption('Point And Prototype')
-        pygame.mouse.set_visible(False)
-
-    def drawText(self, text, font, surface, x, y):
-            textobj = font.render(text, 1, everything.TEXTCOLOR)
-            textrect = textobj.get_rect()
-            textrect.topleft = (x, y)
-            surface.blit(textobj, textrect)
+	pygame.init()
+	mainClock = pygame.time.Clock()
+	pygame.display.set_caption('Point And Prototype')
+	pygame.mouse.set_visible(False)
 
     def update(self):
         game.update()       
-        gui.update()
-        bkgrnd.update()
-        graphics.update()
-        pygame.display.update()
+	gui.update()
+	bkgrnd.update()
+	graphics.update()
+	pygame.display.update()
 
 class myMouse:
     customCursor = pygame.image
     oldX = 0
     oldY = 0
     def __init__(self):
-        print ("Building mouse")
+	print ("Building mouse")
         self.customCursor = pygame.image.load("mousecursor.png")
         everything.windowSurface.blit(self.customCursor,(0,0))
     def update (self):
         for event in pygame.event.get():
             if event.type == pygame.MOUSEMOTION:
                 mX,mY = event.pos
-                self.oldX = mX
+		self.oldX = mX
                 self.oldY = mY
-        everything.windowSurface.blit(self.customCursor,(self.oldX,self.oldY))  
+	everything.windowSurface.blit(self.customCursor,(self.oldX,self.oldY))	
 
 class GUI:
-    rollover = False
-    displayText = False
-    inventory = pygame.rect
     def __init__(self):
-        savebox = pygame.draw.rect(everything.windowSurface,(255,255,0),(1100,0,100,50))
-        savetext = everything.drawText("Save",everything.font,everything.windowSurface,1110,10)
-        #Current issue: Rect doesnt show up, but is irrelevant when the GUI becomes sprite based
-        self.inventory = pygame.draw.rect(everything.windowSurface,(255,255,0),(300, 1000,700,180))
-    print("made GUI!")
+	print("made GUI!")
     def update(self):
-        if(gui.rollover == True):
-            everything.drawText("Inventory",everything.font, everything.windowSurface,300,780) 
-            self.inventory=self.inventory.move(300,820)
-        elif(gui.rollover == False):
-            self.inventory=self.inventory.move(300,1000)
-        if(gui.displayText == True):
-            textBox = pygame.draw.rect(everything.windowSurface,(255,255,0),(300,0,700,100))
-            everything.drawText("King Arthur: \"Welcome to my Game!\"",everything.font, everything.windowSurface,310,10) 
-        elif(gui.displayText == False):
-            textBox = pygame.draw.rect(everything.windowSurface,(255,255,0),(300,0,0,0))
         '''
         print("update GUI")
         '''
@@ -82,10 +55,10 @@ class Graphics:
         for arrays in self.allSprites:
             for sprites in arrays:
                 sprites.location = (sprites.x, sprites.y,100)
-                if (sprites.name == "Walking"):
+		if (sprites.name == "Walking"):
                     sprites.x += 3                    
                 sprites.render(everything.windowSurface)
-        self.customMouse.update()
+	self.customMouse.update()
 
     def load_all_sprites(self):
         self.allSprites.append(self.compileImages(72, 104, 'walktest.png', 20, False, 0, 200,100,"Walking"))
@@ -97,7 +70,7 @@ class Graphics:
 
         master_width, master_height = master_image.get_size()
         for i in xrange(int(master_width/w)):
-            images.append(master_image.subsurface((i*w,0,w,h)))
+    	    images.append(master_image.subsurface((i*w,0,w,h)))
         return images
 
     def compileImages (self, tileX, tileY, str, fps, loopStart, startFrame, spriteX, spriteY, name):
@@ -149,37 +122,37 @@ class AnimatedSprite(pygame.sprite.Sprite):
             
     def render(self, screen):
         self.update(pygame.time.get_ticks())
-        if (self.visible == True):
+	if (self.visible == True):
             self.rectangle.move(self.x,self.y)
             everything.windowSurface.blit(self.image, (self.x, self.y))
 
 class Bkgrnd:
     image = pygame.image
     def __init__(self,str):
-        print("made Bkgrnd!")
-        self.image = pygame.image.load(str) 
+	print("made Bkgrnd!")
+	self.image = pygame.image.load(str)	
         everything.windowSurface.blit(self.image,(0,0))
 
     def update(self):
-        everything.windowSurface.blit(self.image,(0,0))
+	everything.windowSurface.blit(self.image,(0,0))
         '''
-    //image render
-    '''
+	//image render
+	'''
     def bkgrndImage(self,str):
         pygame.image.load(str)
 
-    '''
-    //animations not 4 game
-    '''
+	'''
+	//animations not 4 game
+	'''
 
 class mouseEventHandler(pygame.Rect):
     myRect = pygame.rect
     def __init__(self, mouseX, mouseY):
-        self.myRect = pygame.draw.rect(everything.windowSurface,0,(mouseX,mouseY,5,5))
+	self.myRect = pygame.draw.rect(everything.windowSurface,0,(mouseX,mouseY,5,5))
     def click(self, tempRect):
-        print "mouseEvent fired!"
-        if self.myRect.colliderect(tempRect):
-            return True
+	print "mouseEvent fired!"
+	if self.myRect.colliderect(tempRect):
+	    return True
 
 class Game:
     endGame = False
@@ -193,19 +166,11 @@ class Game:
                 for sprites in arrays:
                     if (sprites.name == "Dove"):
                         for event in pygame.event.get():
-                            if event.type == pygame.MOUSEMOTION:
-                                mX,mY = event.pos
-                                mouseRect = pygame.draw.rect(everything.windowSurface,(0,0,0),(mX,mY,1,1))
-                                if(mouseRect.y >700):
-                                    gui.rollover = True
-                                if(mouseRect.y <700):
-                                    gui.rollover = False
                             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed():
-                                mX,mY = event.pos
-                                mouseRect = mouseEventHandler(mX,mY)
-                                if mouseRect.click(sprites.rectangle):
-                                    print("hitMouse!")
-                                    gui.displayText = True
+			        mX,mY = event.pos
+			        mouseRect = mouseEventHandler(mX,mY)
+			        if mouseRect.click(sprites.rectangle):
+				    print("hitMouse!")
                             if event.type == QUIT:
                                 Game.endGame = True
                             if event.type == KEYDOWN:
@@ -223,7 +188,7 @@ class Game:
         '''
 everything = Everything()
 game = Game()        
-bkgrnd = Bkgrnd(str="kingarthur.PNG")
+bkgrnd = Bkgrnd(str="kingarthur.png")
 graphics = Graphics()
 gui = GUI()
 while True:
