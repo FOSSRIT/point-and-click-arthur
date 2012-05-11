@@ -28,6 +28,24 @@ imageclicked = False
 soundclicked = False
 animclicked = False
 
+class mouseEventHandler(pygame.Rect):
+	def __init__(self, mouseX, mouseY):
+		tempRect = pygame.draw.rect(windowSurface,BACKGROUNDCOLOR,(mouseX,mouseY,3,3))
+	def click(self, tempRect):
+		print "mouseEvent fired!"
+		if tempRect.colliderect(tempRect):
+			return True
+
+#example implementation to handle mouse events. Click takes the parameter of the current rectangle of the item clicked. 
+'''	if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+            mX,mY = event.pos
+            mouseClickRect = mouseEventHandler(mX, mY)
+            if mouseClickRect.click(makeAnim):
+                if animclicked == True:
+                    animclicked = False
+                if animclicked == False:
+                    animclicked = True'''
+	
 def drawText(text, font, surface, x, y):
     textobj = font.render(text, 1, TEXTCOLOR)
     textrect = textobj.get_rect()
@@ -207,16 +225,25 @@ while (endGame ==False):
             for sprite in sprites:
                 sprite.location = (KnightX,800)
                 sprite.render(windowSurface)
-    
     for event in pygame.event.get():
         if event.type == pygame.MOUSEMOTION:
             mX,mY = event.pos
-            mouseRect = pygame.draw.rect(windowSurface,BACKGROUNDCOLOR,(mX,mY,1,1))
+            mouseRect = pygame.draw.rect(windowSurface,BACKGROUNDCOLOR,(mX,mY,3,3))
+	if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+            mX,mY = event.pos
+            mouseClickRect = mouseEventHandler(mX, mY)
+            if mouseClickRect.click(makeAnim):
+                if animclicked == True:
+                    animclicked = False
+                if animclicked == False:
+                    animclicked = True
         if event.type == QUIT:
             endGame = True
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 endGame = True;
+    pygame.display.update()
+'''
         if mouseRect.colliderect(makeText):
             if textclicked == True:
                 textclicked = False
@@ -231,14 +258,7 @@ while (endGame ==False):
             #if soundclicked == True:
                #soundclicked = False
             #elif soundclicked == False:
-                #soundclicked = True
-        if mouseRect.colliderect(makeAnim):
-            if animclicked == True:
-                animclicked = False
-            if animclicked == False:
-                animclicked = True
-    
-    pygame.display.update()
+                #soundclicked = True'''
 
 if(endGame == True):
     pygame.quit()

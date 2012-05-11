@@ -16,9 +16,9 @@ class Everything:
         pygame.mouse.set_visible(True)
 
     def update(self):
+        gui.update()
         bkgrnd.update()
         game.update()
-        gui.update()
         pygame.display.update()
 
 class GUI:
@@ -46,6 +46,13 @@ class Bkgrnd:
         '''
         //animations not 4 game
         '''
+class mouseEventHandler(pygame.Rect):
+	def __init__(self, mouseX, mouseY):
+		tempRect = pygame.draw.rect(everything.windowSurface,0,(mouseX,mouseY,1,1))
+	def click(self, tempRect):
+		print "mouseEvent fired!"
+		if tempRect.colliderect(tempRect):
+			return True
 
 class Game:
     endGame = False
@@ -54,11 +61,14 @@ class Game:
         print("made Game!")
         
     def update(self):
+	testRect = pygame.draw.rect(everything.windowSurface,0,(300,100,20,20))
         if (Game.endGame ==False):
             for event in pygame.event.get():
-                if event.type == pygame.MOUSEMOTION:
-                    mX,mY = event.pos
-                    mouseRect = pygame.draw.rect(everything.windowSurface,(255,255,255),(mX,mY,1,1))
+                if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed():
+			mX,mY = event.pos
+			mouseRect = mouseEventHandler(mX,mY)
+			if mouseRect.click(testRect):
+				print("hitMouse!")
                 if event.type == QUIT:
                     Game.endGame = True
                 if event.type == KEYDOWN:
@@ -77,9 +87,11 @@ class Game:
             //saving(later)
             //input
         '''
+
         
 everything = Everything()
-bkgrnd = Bkgrnd(str="kingarthur.PNG")
+bkgrnd = Bkgrnd(str="kingarthur.png")
 game = Game()
 gui = GUI()
-everything.update()
+while True:
+	everything.update()
