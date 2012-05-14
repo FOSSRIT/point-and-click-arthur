@@ -3,15 +3,25 @@ import os
 from pygame.locals import *
 from random import randint
 
+'''
+Question from David (oddshocks):
+When we write the final code, could we use variables like_this
+rather than theseOnes? Variables like_this are more Python-y.
+CapitalLetters are good for class names.
+Just a thought, your guys' call. :)
+'''
+
+### CONSTANTS (also, these contants might be better named with underscores (_))
 WINDOWWIDTH = 1200
 WINDOWHEIGHT = 900
+TEXTCOLOR = (255, 255, 255)
 
-class Everything:
-    windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT));
-    font = pygame.font
-    TEXTCOLOR = (255, 255, 255)
+class Everything(object):
     def __init__(self):
-        pygame.init()
+        pygame.init() ### INITIALIZE PYGAME
+        self.windowSurface = pygame.display.set_mode((WINDOWWIDTH,
+            WINDOWHEIGHT))
+        self.font = pygame.font
         pygame.font.init()
         self.font = pygame.font.SysFont(None, 48)
         mainClock = pygame.time.Clock()
@@ -19,23 +29,25 @@ class Everything:
         pygame.mouse.set_visible(False)
 
     def drawText(self, text, font, surface, x, y):
-            textobj = font.render(text, 1, everything.TEXTCOLOR)
-            textrect = textobj.get_rect()
-            textrect.topleft = (x, y)
-            surface.blit(textobj, textrect)
+        textobj = font.render(text, 1, TEXTCOLOR)
+        textrect = textobj.get_rect()
+        textrect.topleft = (x, y)
+        surface.blit(textobj, textrect)
 
     def update(self):
         game.update()       
         gui.update()
         bkgrnd.update()
         graphics.update()
-        pygame.display.update()
+        # pygame.display.update()
+        # Pretty sure we should use flip() here?
+        pygame.display.flip()
 
-class myMouse:
-    customCursor = pygame.image
-    oldX = 0
-    oldY = 0
+class myMouse(object):
     def __init__(self):
+        self.customCursor = pygame.image
+        self.oldX = 0
+        self.oldY = 0
         print ("Building mouse")
         self.customCursor = pygame.image.load("mousecursor.png")
         everything.windowSurface.blit(self.customCursor,(0,0))
@@ -47,37 +59,43 @@ class myMouse:
                 self.oldY = mY
         everything.windowSurface.blit(self.customCursor,(self.oldX,self.oldY))  
 
-class GUI:
-    rollover = False
-    displayText = False
-    inventory = pygame.rect
+class GUI(object):
     def __init__(self):
-        savebox = pygame.draw.rect(everything.windowSurface,(255,255,0),(1100,0,100,50))
-        savetext = everything.drawText("Save",everything.font,everything.windowSurface,1110,10)
-        #Current issue: Rect doesnt show up, but is irrelevant when the GUI becomes sprite based
-        self.inventory = pygame.draw.rect(everything.windowSurface,(255,255,0),(300, 1000,700,180))
-    print("made GUI!")
+        self.rollover = False
+        self.displayText = False
+        savebox = pygame.draw.rect(
+            everything.windowSurface,(255,255,0),(1100,0,100,50))
+        savetext = everything.drawText(
+            "Save",everything.font,everything.windowSurface,1110,10)
+        # Current issue: Rect doesnt show up,
+        # but this becomes irrelevant when the GUI becomes sprite based
+        # oddshocks: it is possible that I fixed this, not sure
+        self.inventory = pygame.draw.rect(
+            everything.windowSurface,(255,255,0),(300, 1000,700,180))
+        print("made GUI!")
     def update(self):
-        if(gui.rollover == True):
-            everything.drawText("Inventory",everything.font, everything.windowSurface,300,780) 
+        if(self.rollover == True):
+            everything.drawText(
+                "Inventory",everything.font, everything.windowSurface,300,780) 
             self.inventory=self.inventory.move(300,820)
-        elif(gui.rollover == False):
+        elif(self.rollover == False):
             self.inventory=self.inventory.move(300,1000)
-        if(gui.displayText == True):
-            textBox = pygame.draw.rect(everything.windowSurface,(255,255,0),(300,0,700,100))
-            everything.drawText("King Arthur: \"Welcome to my Game!\"",everything.font, everything.windowSurface,310,10) 
-        elif(gui.displayText == False):
-            textBox = pygame.draw.rect(everything.windowSurface,(255,255,0),(300,0,0,0))
-        '''
-        print("update GUI")
-        '''
-class Graphics:
-    customMouse = object
-    allSprites = []
+        if(self.displayText == True):
+            textBox = pygame.draw.rect(
+                everything.windowSurface,(255,255,0),(300,0,700,100))
+            everything.drawText(
+                "King Arthur: \"Welcome to my Game!\"",everything.font,\
+                everything.windowSurface,310,10) 
+        elif(self.displayText == False):
+            textBox = pygame.draw.rect(
+                everything.windowSurface,(255,255,0),(300,0,0,0))
+        # print("updated GUI")
+
+class Graphics(object):
     def __init__(self):
         self.customMouse = myMouse()
+        self.allSprites = []
         self.load_all_sprites()
-
     def update(self):
         for arrays in self.allSprites:
             for sprites in arrays:
@@ -88,51 +106,49 @@ class Graphics:
         self.customMouse.update()
 
     def load_all_sprites(self):
-        self.allSprites.append(self.compileImages(72, 104, 'walktest.png', 20, False, 0, 200,100,"Walking"))
-        self.allSprites.append(self.compileImages(48, 48, 'birdsprite.png', 20, True, 1, 300,100,"Dove"))
+        self.allSprites.append(self.compileImages(
+            72, 104, 'walktest.png', 20, False, 0, 200,100,"Walking"))
+        self.allSprites.append(self.compileImages(
+            48, 48, 'birdsprite.png', 20, True, 1, 300,100,"Dove"))
 
     def load_sliced_sprites(self,w, h, filename):
         images = []
-        master_image = pygame.image.load(os.path.join('', filename)).convert_alpha()
-
+        master_image = pygame.image.load(
+            os.path.join('', filename)).convert_alpha()
         master_width, master_height = master_image.get_size()
         for i in xrange(int(master_width/w)):
             images.append(master_image.subsurface((i*w,0,w,h)))
         return images
 
-    def compileImages (self, tileX, tileY, str, fps, loopStart, startFrame, spriteX, spriteY, name):
+    def compileImages (self, tileX, tileY, str, fps,
+        loopStart, startFrame, spriteX, spriteY, name):
         tempSprite = self.load_sliced_sprites(tileX, tileY, str)
         sprites = []
-        sprites.append(AnimatedSprite(tempSprite, fps, loopStart, startFrame, spriteX, spriteY, name, tileX, tileY))
+        sprites.append(
+            AnimatedSprite(
+                tempSprite, fps, loopStart, startFrame,\
+                spriteX, spriteY, name, tileX, tileY))
         return sprites
 
 class AnimatedSprite(pygame.sprite.Sprite):
-    idle = False
-    visible = True
-    myStartSprite = 0
-    x = 0
-    y = 0
-    name = "nope"
-    rectangle = pygame.rect
-    height = 0
-    width = 0
-    def __init__(self, images, fps, idleTag, startSprite, locX, locY, spriteName, w, h):
+    def __init__(self, images, fps, idleTag,\
+        startSprite, locX, locY, spriteName, w, h):
+        self.x = locX
+        self.y = locY
         self.name = spriteName
         self.height = h
         self.width = w
-        self.rectangle = pygame.draw.rect(everything.windowSurface,0,(self.x,self.y, w, h))
-        self.x = locX
-        self.y = locY
+        self.visible = True
+        self.rectangle = pygame.draw.rect(
+            everything.windowSurface,0,(self.x,self.y, w, h))
         self.idle = idleTag
         pygame.sprite.Sprite.__init__(self)
         self._images = images
-
         self._start = pygame.time.get_ticks()
         self._delay = 3000 / fps
         self._last_update = 0
         self._frame = startSprite
-        self.myStartSprite = startSprite
-        
+        self.myStartSprite = startSprite 
         self.update(pygame.time.get_ticks())
 
     def update(self, t):
@@ -143,7 +159,9 @@ class AnimatedSprite(pygame.sprite.Sprite):
                     self._frame = self.myStartSprite
                 
             if (self.idle == True):
-                self._frame = 0 #idle. Could probably edit this slightly and make an idle animation
+                self._frame = 0 # idle. 
+                                # Could probably edit this slightly
+                                # and make an idle animation
             self.image = self._images[self._frame]
             self._last_update = t
             
@@ -153,8 +171,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
             self.rectangle.move(self.x,self.y)
             everything.windowSurface.blit(self.image, (self.x, self.y))
 
-class Bkgrnd:
-    image = pygame.image
+class Bkgrnd(object):
     def __init__(self,str):
         print("made Bkgrnd!")
         self.image = pygame.image.load(str) 
@@ -162,9 +179,10 @@ class Bkgrnd:
 
     def update(self):
         everything.windowSurface.blit(self.image,(0,0))
+        # What are the next two comments for? -- David (oddshocks)
         '''
-    //image render
-    '''
+        //image render
+        '''
     def bkgrndImage(self,str):
         pygame.image.load(str)
 
@@ -173,44 +191,48 @@ class Bkgrnd:
     '''
 
 class mouseEventHandler(pygame.Rect):
-    myRect = pygame.rect
     def __init__(self, mouseX, mouseY):
-        self.myRect = pygame.draw.rect(everything.windowSurface,0,(mouseX,mouseY,5,5))
+        self.myRect = pygame.draw.rect(
+            everything.windowSurface,0,(
+            mouseX,mouseY,5,5))
     def click(self, tempRect):
         print "mouseEvent fired!"
         if self.myRect.colliderect(tempRect):
             return True
 
-class Game:
-    endGame = False
-    
+class Game(object):
     def __init__(self):
         print("made Game!")
+        self.endGame = False
         
     def update(self):
-        if (Game.endGame ==False):
+        if (self.endGame == False):
             for arrays in graphics.allSprites:
                 for sprites in arrays:
                     if (sprites.name == "Dove"):
                         for event in pygame.event.get():
                             if event.type == pygame.MOUSEMOTION:
                                 mX,mY = event.pos
-                                mouseRect = pygame.draw.rect(everything.windowSurface,(0,0,0),(mX,mY,1,1))
+                                mouseRect = pygame.draw.rect(
+                                    everything.windowSurface,(0,0,0),(mX,mY,1,1))
                                 if(mouseRect.y >700):
                                     gui.rollover = True
                                 if(mouseRect.y <700):
                                     gui.rollover = False
-                            if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed():
+                            if event.type == pygame.MOUSEBUTTONDOWN \
+                                and pygame.mouse.get_pressed():
                                 mX,mY = event.pos
                                 mouseRect = mouseEventHandler(mX,mY)
                                 if mouseRect.click(sprites.rectangle):
                                     print("hitMouse!")
                                     gui.displayText = True
-                            if event.type == QUIT:
-                                Game.endGame = True
+                            if event.type == pygame.QUIT:
+                                self.endGame = True
                             if event.type == KEYDOWN:
                                 if event.key == K_ESCAPE:
-                                    Game.endGame = True
+                                    self.endGame = True
+        else:
+            quitting = True
         '''
         //mouse position
         //check for
@@ -223,8 +245,19 @@ class Game:
         '''
 everything = Everything()
 game = Game()        
-bkgrnd = Bkgrnd(str="kingarthur.PNG")
+bkgrnd = Bkgrnd(str="kingarthur.png")
 graphics = Graphics()
 gui = GUI()
-while True:
-   everything.update()
+
+quitting = False # is the game qutting?
+clock = pygame.time.Clock()
+
+### START THE GAME LOOP
+
+while not quitting:
+    clock.tick(30) # Set FPS to 30
+    everything.update()
+
+### END THE GAME LOOP
+
+pygame.quit() # quit the game
