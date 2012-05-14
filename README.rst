@@ -48,3 +48,5 @@ To Do
 - Find sound effects (must be public domain or free use!)
 - Find an artist to help us or figure out a way to create art assets and animations
 - Find a point and click engine for PyGame, or, a similar engine for another language that can be adapted to Python
+
+This software is license under the Open Software License, see License.txt for more info.
