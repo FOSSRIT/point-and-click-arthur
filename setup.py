@@ -18,7 +18,7 @@ setup(
     description="Point and click Arthurian adventure!",
     long_description=long_description,
     url='http://github.com/FOSSRIT/point-and-click-arthur',
-    #license='what license?',
+    license='OSL',
     classifiers=[
         "Programming Language :: Python :: 2.7",
     ],
