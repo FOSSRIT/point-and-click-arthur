@@ -5,8 +5,6 @@ import sys
 from pygame.locals import *
 from random import randint
 
-quitting = False # is the game qutting?
-
 ### CONSTANTS (also, these contants might be better named with underscores (_))
 WINDOW_WIDTH = 1200
 WINDOW_HEIGHT = 900
@@ -14,13 +12,11 @@ TEXT_COLOR = (255, 255, 255)
 
 class Everything(object):
     def __init__(self):
-        pygame.init() ### INITIALIZE PYGAME
         self.window_surface = pygame.display.set_mode((WINDOW_WIDTH,
             WINDOW_HEIGHT))
         self.font = pygame.font
         pygame.font.init()
         self.font = pygame.font.SysFont(None, 48)
-        main_clock = pygame.time.Clock()
         pygame.display.set_caption('Point And Prototype')
         pygame.mouse.set_visible(False)
 
@@ -31,18 +27,14 @@ class Everything(object):
         surface.blit(text_obj, text_rect)
 
     def update(self):
-        if not quitting:
-            game.update()       
-            gui.update()
-            background.update()
-            graphics.update()
-            # pygame.display.update()
-            # Pretty sure we should use flip() here?
-            pygame.display.flip()
-        else:
-            pygame.quit() # Quit the game
+        game.update()       
+        gui.update()
+        background.update()
+        graphics.update()
+        # pygame.display.update()
+        # Pretty sure we should use flip()? And I moved it to the main program loop. -odd
 
-class my_mouse(object):
+class MyMouse(object):
     def __init__(self):
         self.custom_cursor = pygame.image
         self.old_x = 0
@@ -94,7 +86,7 @@ class GUI(object):
 
 class Graphics(object):
     def __init__(self):
-        self.custom_mouse = my_mouse()
+        self.custom_mouse = MyMouse()
         self.all_sprites = []
         self.load_all_sprites()
     def update(self):
@@ -225,13 +217,6 @@ class Game(object):
                             if mouse_rect.click(sprites.rectangle):
                                 print 'Hit mouse!' # Debug
                                 gui.display_text = True
-                        if event.type == pygame.QUIT:
-                            print 'Got quit event' # Debug
-                            pygame.quit()
-                        if event.type == KEYDOWN:
-                            if event.key == K_ESCAPE:
-                                print 'Got esc event' # Debug
-                                pygame.quit()
         '''
         //mouse position
         //check for
@@ -242,6 +227,9 @@ class Game(object):
             //saving(later)
             //input
         '''
+
+pygame.init() # Initialize pygame
+
 everything = Everything()
 game = Game()        
 background = Background(str="kingarthur.png")
@@ -252,8 +240,27 @@ clock = pygame.time.Clock()
 
 ### START THE GAME LOOP
 
-while True:
+quitting = False # Is the game closing?
+
+while not quitting:
     clock.tick(30) # Set FPS to 30
+    
+    # Main event handling
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            print 'Got quit event' # DEBUG
+            quitting = True
+        if event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                print 'Got [esc] event' # DEBUG
+                quitting = True
+
+    # Update everything
     everything.update()
 
+    # Update the screen
+    pygame.display.flip()
+
 ### END THE GAME LOOP
+
+pygame.quit() # Quit the game
