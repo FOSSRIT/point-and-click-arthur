@@ -42,7 +42,7 @@ class Everything(object):
         else:
             pygame.quit() # Quit the game
 
-class my_mouse(object):
+class MyMouse(object):
     def __init__(self):
         self.custom_cursor = pygame.image
         self.old_x = 0
@@ -94,7 +94,7 @@ class GUI(object):
 
 class Graphics(object):
     def __init__(self):
-        self.custom_mouse = my_mouse()
+        self.custom_mouse = MyMouse()
         self.all_sprites = []
         self.load_all_sprites()
     def update(self):
