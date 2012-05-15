@@ -180,38 +180,22 @@ class Background(object):
 
 class MouseEventHandler(pygame.Rect):
     def __init__(self, mouse_x, mouse_y):
-        self.myRect = pygame.draw.rect(
+        self.my_rect = pygame.draw.rect(
             everything.window_surface, 0, (mouse_x, mouse_y, 5, 5))
     def click(self, temp_rect):
-        print 'Mouse event fired!' # Debug
-        if self.myRect.colliderect(temp_rect):
+        print 'Mouse clicked!' # Debug
+        if self.my_rect.colliderect(temp_rect):
             return True
 
 class Game(object):
     def __init__(self):
         print 'Made game!' # Debug
+        self.mouse_rect = None
 
     def update(self):
-        for arrays in graphics.all_sprites:
-            for sprite in arrays:
-                if (sprite.name == "Dove"):
-                    for event in pygame.event.get():
-                        if event.type == pygame.MOUSEMOTION:
-                            mouse_rect = pygame.draw.rect(
-                                everything.window_surface,
-                                (0, 0, 0), (graphics.custom_mouse.x,
-                                    graphics.custom_mouse.y, 1, 1))
-                            if(mouse_rect.y > 700):
-                                gui.rollover = True
-                            if(mouse_rect.y < 700):
-                                gui.rollover = False
-                        if event.type == pygame.MOUSEBUTTONDOWN \
-                            and pygame.mouse.get_pressed():
-                            mouse_rect = MouseEventHandler(
-                                graphics.custom_mouse.x, graphics.custom_mouse.y)
-                            if mouse_rect.click(sprite.rectangle):
-                                print 'Hit mouse!' # Debug
-                                gui.display_text = True
+                                
+
+        # Can someone explain the below comments to me? -- odd
         '''
         //mouse position
         //check for
@@ -253,7 +237,24 @@ while not quitting:
             graphics.custom_mouse.x, graphics.custom_mouse.y = event.pos
             graphics.custom_mouse.old_x = graphics.custom_mouse.x
             graphics.custom_mouse.old_y = graphics.custom_mouse.y
-
+            mouse_rect = pygame.draw.rect(
+                everything.window_surface,
+                (0, 0, 0), (graphics.custom_mouse.x,
+                graphics.custom_mouse.y, 1, 1))
+            if mouse_rect.y > 700:
+                gui.rollover = True
+            if mouse_rect.y < 700:
+                gui.rollover = False
+        if event.type == pygame.MOUSEBUTTONDOWN \
+            and pygame.mouse.get_pressed():
+            mouse_rect = MouseEventHandler(
+                graphics.custom_mouse.x, graphics.custom_mouse.y)
+            for arrays in graphics.all_sprites:
+                for sprite in arrays:
+                    if (sprite.name == "Dove"):
+                        if mouse_rect.click(sprite.rectangle):
+                            print 'Hit the dove!' # Debug
+                            gui.display_text = True
     # Update everything
     everything.update()
 
