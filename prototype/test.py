@@ -5,7 +5,7 @@ import sys
 from pygame.locals import *
 from random import randint
 
-### CONSTANTS (also, these contants might be better named with underscores (_))
+### CONSTANTS
 WINDOW_WIDTH = 1200
 WINDOW_HEIGHT = 900
 TEXT_COLOR = (255, 255, 255)
@@ -31,23 +31,18 @@ class Everything(object):
         gui.update()
         background.update()
         graphics.update()
-        # pygame.display.update()
-        # Pretty sure we should use flip()? And I moved it to the main program loop. -odd
 
 class MyMouse(object):
     def __init__(self):
         self.custom_cursor = pygame.image
+        self.x = 0
+        self.y = 0
         self.old_x = 0
         self.old_y = 0
         print 'Building mouse...' # Debug
         self.custom_cursor = pygame.image.load("mousecursor.png")
         everything.window_surface.blit(self.custom_cursor, (0, 0))
     def update (self):
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEMOTION:
-                m_x, m_y = event.pos
-                self.old_x = m_x
-                self.old_y = m_y
         everything.window_surface.blit(self.custom_cursor,
             (self.old_x, self.old_y))  
 
@@ -185,38 +180,22 @@ class Background(object):
 
 class MouseEventHandler(pygame.Rect):
     def __init__(self, mouse_x, mouse_y):
-        self.myRect = pygame.draw.rect(
+        self.my_rect = pygame.draw.rect(
             everything.window_surface, 0, (mouse_x, mouse_y, 5, 5))
     def click(self, temp_rect):
-        print 'Mouse event fired!' # Debug
-        if self.myRect.colliderect(temp_rect):
+        print 'Mouse clicked!' # Debug
+        if self.my_rect.colliderect(temp_rect):
             return True
 
 class Game(object):
     def __init__(self):
         print 'Made game!' # Debug
+        self.mouse_rect = None
 
     def update(self):
-        for arrays in graphics.all_sprites:
-            for sprites in arrays:
-                if (sprites.name == "Dove"):
-                    for event in pygame.event.get():
-                        if event.type == pygame.MOUSEMOTION:
-                            m_x, m_y = event.pos
-                            mouse_rect = pygame.draw.rect(
-                                everything.window_surface,
-                                (0, 0, 0), (m_x, m_y, 1, 1))
-                            if(mouse_rect.y > 700):
-                                gui.rollover = True
-                            if(mouse_rect.y < 700):
-                                gui.rollover = False
-                        if event.type == pygame.MOUSEBUTTONDOWN \
-                            and pygame.mouse.get_pressed():
-                            m_x, m_y = event.pos
-                            mouse_rect = MouseEventHandler(m_x, m_y)
-                            if mouse_rect.click(sprites.rectangle):
-                                print 'Hit mouse!' # Debug
-                                gui.display_text = True
+                                
+
+        # Can someone explain the below comments to me? -- odd
         '''
         //mouse position
         //check for
@@ -254,7 +233,28 @@ while not quitting:
             if event.key == K_ESCAPE:
                 print 'Got [esc] event' # DEBUG
                 quitting = True
-
+        if event.type == pygame.MOUSEMOTION:
+            graphics.custom_mouse.x, graphics.custom_mouse.y = event.pos
+            graphics.custom_mouse.old_x = graphics.custom_mouse.x
+            graphics.custom_mouse.old_y = graphics.custom_mouse.y
+            mouse_rect = pygame.draw.rect(
+                everything.window_surface,
+                (0, 0, 0), (graphics.custom_mouse.x,
+                graphics.custom_mouse.y, 1, 1))
+            if mouse_rect.y > 700:
+                gui.rollover = True
+            if mouse_rect.y < 700:
+                gui.rollover = False
+        if event.type == pygame.MOUSEBUTTONDOWN \
+            and pygame.mouse.get_pressed():
+            mouse_rect = MouseEventHandler(
+                graphics.custom_mouse.x, graphics.custom_mouse.y)
+            for arrays in graphics.all_sprites:
+                for sprite in arrays:
+                    if (sprite.name == "Dove"):
+                        if mouse_rect.click(sprite.rectangle):
+                            print 'Hit the dove!' # Debug
+                            gui.display_text = True
     # Update everything
     everything.update()
 
