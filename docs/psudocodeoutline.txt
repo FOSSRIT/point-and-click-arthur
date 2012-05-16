@@ -1,0 +1,50 @@
+Start
+- BG = kingarthur.png
+- Sprites: Interactive dove (hover) (birdsprite.png)
+- Mouse Events: Click to continue (key stroke also accepted)
+
+Find Sword
+- BG = screen1.png
+- Sprites: Arthurstand.png : itemsWORLD.png[0]
+- Mouse Events: Click sword (added to inventory GUI)
+
+Merlin Shack
+- BG = merlinshackOUTSIDE.png
+- Sprites: MerlinWALK.png[0] : couldron.png : merlinMagic.png (invisible)
+- Mouse Events: Click soup (added to inventory GUI) : Give Wand (merlinMagic.png plays once, loops back to walk [0], added belt to inventory GUI)
+
+Gawain West
+- BG = Gawain.png
+- Sprites: greenknight.png : knightstand.png : itemsWORLD.png[2]
+- Mouse Events: Click dove (added to inventory GUI) : give belt (story progression, path to north opens)
+
+Lancelot East (Day)
+- BG = LancelotDAY.png
+- Sprites: knightWALKBLUE.png[0] : itemsWORLD.png[4]
+- Mouse Events: click wand (added to inventory GUI) 
+
+Castle
+- BG = castleHalls.png
+- Sprites: knightWALKGREEN.png[0] 
+- Mouse Events: Give soup (south exit activated)
+
+Clearing
+- BG = outsideCasltleField.png
+
+Keep
+- BG = keep.png
+- Sprites: knight-attackMORDRED.png[1] (not started) : 	monster.png[0] (not started) : itemsWORLD[3]
+- Mouse Events: Use singing dove on monster (mordredattack + monster.png play anims once)
+
+Forest
+- BG = forestAgravain.png
+- Sprites: knightWALKYELLOW.png[0]
+- Mouse Events: Give dove to Agravain (get singing dove)
+
+Lancelot East (Night)
+- BG = LancelotNIGHT.png
+- Sprites = knightWALKGREEN.png[0] : knightWALKYELLOW.png[0] : knightWALKBLUE.png[0] : itemsWORLD[5]
+- Mouse Events: Click grail (added grail to inventory GUI) : Use grail on Lancelot (game ends, win game = true)
+
+Camelot
+- BG = camelot.png
