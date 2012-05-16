@@ -10,6 +10,12 @@ WINDOW_WIDTH = 1200
 WINDOW_HEIGHT = 900
 TEXT_COLOR = (255, 255, 255)
 
+'''
+Sprite Names:
+RedKnightWalk
+Dove
+'''
+
 class Everything(object):
     def __init__(self):
         self.window_surface = pygame.display.set_mode((WINDOW_WIDTH,
@@ -88,14 +94,14 @@ class Graphics(object):
         for arrays in self.all_sprites:
             for sprites in arrays:
                 sprites.location = (sprites.x, sprites.y, 100)
-                if sprites.name == "Walking":
+                if sprites.name == "RedKnightWalk":
                     sprites.x += 3                    
                 sprites.render(everything.window_surface)
         self.custom_mouse.update()
 
     def load_all_sprites(self):
         self.all_sprites.append(self.compile_images(
-            72, 104, 'walktest.png', 20, False, 0, 200, 100, "Walking"))
+            72, 104, 'walktest.png', 20, False, 0, 200, 100, "RedKnightWalk"))
         self.all_sprites.append(self.compile_images(
             48, 48, 'birdsprite.png', 20, True, 1, 300, 100, "Dove"))
 
@@ -107,6 +113,15 @@ class Graphics(object):
         for i in xrange(int(master_width / w)):
             images.append(master_image.subsurface((i * w, 0, w, h)))
         return images
+
+    def get_by_id(self, id):
+    #finds the specific sprite, then returns the sprites rect for clicking purposes
+        for arrays in self.all_sprites:
+            for sprites in arrays:
+                if sprites.name == id:
+                    return sprites.rect
+                else:
+                    print "Error, could not find sprite by index"
 
     def compile_images (self, tile_x, tile_y, str, fps,
         loop_start, start_frame, sprite_x, sprite_y, name):
@@ -182,10 +197,11 @@ class MouseEventHandler(pygame.Rect):
     def __init__(self, mouse_x, mouse_y):
         self.my_rect = pygame.draw.rect(
             everything.window_surface, 0, (mouse_x, mouse_y, 5, 5))
-    def click(self, temp_rect):
+    def click(self, sprite_name):
         print 'Mouse clicked!' # Debug
-        if self.my_rect.colliderect(temp_rect):
+        if self.my_rect.colliderect(Graphics.get_by_id(sprite_name)):
             return True
+			
 
 class Game(object):
     def __init__(self):
@@ -193,7 +209,7 @@ class Game(object):
         self.mouse_rect = None
 
     def update(self):
-                                
+        #                        
 
         # Can someone explain the below comments to me? -- odd
         '''
