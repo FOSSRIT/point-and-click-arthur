@@ -119,9 +119,12 @@ class Graphics(object):
         for arrays in self.all_sprites:
             for sprites in arrays:
                 if sprites.name == id:
-                    return sprites.rect
+                    return sprites.rectangle
                 else:
                     print "Error, could not find sprite by index"
+                    return pygame.draw.rect(
+                everything.window_surface,
+                (0, 0, 0), (0,0, 1, 1))
 
     def compile_images (self, tile_x, tile_y, str, fps,
         loop_start, start_frame, sprite_x, sprite_y, name):
@@ -193,15 +196,17 @@ class Background(object):
     //animations not 4 game
     '''
 
-class MouseEventHandler(pygame.Rect):
-    def __init__(self, mouse_x, mouse_y):
+class MouseEventHandler(object):
+    def __init__ (self, mouse_x, mouse_y):
         self.my_rect = pygame.draw.rect(
             everything.window_surface, 0, (mouse_x, mouse_y, 5, 5))
     def click(self, sprite_name):
         print 'Mouse clicked!' # Debug
-        if self.my_rect.colliderect(Graphics.get_by_id(sprite_name)):
+        if self.my_rect.colliderect(graphics.get_by_id(sprite_name)):
             return True
-			
+    def update(self, mouse_x, mouse_y):
+        self.my_rect = pygame.draw.rect(
+            everything.window_surface, 0, (mouse_x, mouse_y, 5, 5))
 
 class Game(object):
     def __init__(self):
@@ -209,7 +214,9 @@ class Game(object):
         self.mouse_rect = None
 
     def update(self):
-        #                        
+        '''
+        if (
+        '''
 
         # Can someone explain the below comments to me? -- odd
         '''
@@ -230,7 +237,7 @@ game = Game()
 background = Background(str="kingarthur.png")
 graphics = Graphics()
 gui = GUI()
-
+mouse = MouseEventHandler(0,0)
 clock = pygame.time.Clock()
 
 ### START THE GAME LOOP
@@ -250,6 +257,7 @@ while not quitting:
                 print 'Got [esc] event' # DEBUG
                 quitting = True
         if event.type == pygame.MOUSEMOTION:
+            mouse.update(graphics.custom_mouse.x, graphics.custom_mouse.y)
             graphics.custom_mouse.x, graphics.custom_mouse.y = event.pos
             graphics.custom_mouse.old_x = graphics.custom_mouse.x
             graphics.custom_mouse.old_y = graphics.custom_mouse.y
@@ -263,14 +271,10 @@ while not quitting:
                 gui.rollover = False
         if event.type == pygame.MOUSEBUTTONDOWN \
             and pygame.mouse.get_pressed():
-            mouse_rect = MouseEventHandler(
-                graphics.custom_mouse.x, graphics.custom_mouse.y)
-            for arrays in graphics.all_sprites:
-                for sprite in arrays:
-                    if (sprite.name == "Dove"):
-                        if mouse_rect.click(sprite.rectangle):
-                            print 'Hit the dove!' # Debug
-                            gui.display_text = True
+            mouse.update(graphics.custom_mouse.x, graphics.custom_mouse.y)
+            if mouse.click("Dove"):
+                print 'Hit the dove!' # Debug
+                gui.display_text = True
     # Update everything
     everything.update()
 
