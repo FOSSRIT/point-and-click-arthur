@@ -1,4 +1,5 @@
 # This is the YAML file used when playing point-and-click-arthur in English.
+# This file does NOT contain game logic
 
 PLACES:
 -   ID: start
@@ -6,18 +7,60 @@ PLACES:
     -   first_visit:
         -   DIALOG:
             -   ACTOR: "Arthur"
-                TEXT: "Where is that sword? Excalibur?"
-                TEXT: "Excalibur, where did you run off too." # question mark?
-                TEXT: "Oh, hellow. Have you seen a sword around here?" 
+                TEXT:
+                    - "Where is that sword? Excalibur?"
+                    - "Excalibur, where did you run off too." # question mark?
+                    - "Oh, hellow. Have you seen a sword around here?" 
     -   click_lake:
         -   DIALOG:
             -   ACTOR: ""
-                TEXT: "You found the magic sword, Excalibur!"
+                TEXT:
+                    - "You found the magic sword, Excalibur!"
     -   give_arthur_sword:
         -   DIALOG:
             -   ACTOR: "Arthur"
-                TEXT: "Yes! There it is, thank you!"
-                TEXT: "What is your name, so I may thank you proper?"
+                TEXT:
+                    - "Yes! There it is, thank you!"
+                    - "What is your name, so I may thank you proper?"
+    -   name_submit:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Ah, {player_name}, that's a fine name."
+                    - "I, King Arthur of Britain,"
+                    - "knight you Sir {player_name}, the Royal Investigator."
+                    - "Now then, we need to celebrate!"
+                    - "Will you help me round up the Knights of the Round Table"
+                    - "so we can have a proper party?"
+    -   accept_quest:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Good! Let's head out."
+    -   decline_quest:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "You're modest, but I insist, let's head out."
+
+-   ID: shack
+    ACTIONS:
+    -   first_visit:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Merlin my friend, how are you?"
+            -   ACTOR: "Merlin"
+                TEXT:
+                    - "My dear Arthur, I am well. What do I owe this honor?"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "My Royal Detective and I are on a journey to round up"
+                    - "all the Knights of the Round Table for a banquet."
+                    - "Will you be joining us?"
+            -   ACTOR: "Merlin"
+                TEXT:
+
 
 ITEMS:
 -   ID: sword
