@@ -73,7 +73,7 @@ class GUI(object):
             text_box = pygame.draw.rect(
                 everything.window_surface, (255, 255, 0), (300, 0, 700, 100))
             everything.draw_text(
-                "King Arthur: \"Welcome to my Game!\"", everything.font,\
+                "King Arthur: \"Welcome to my Game!\"", everything.font,
                 everything.window_surface, 310, 10) 
         elif self.display_text == False:
             text_box = pygame.draw.rect(
@@ -114,13 +114,13 @@ class Graphics(object):
         sprites = []
         sprites.append(
             AnimatedSprite(
-                temp_sprite, fps, loop_start, start_frame,\
-                sprite_x, sprite_y, name, tile_x, tile_y))
+                temp_sprite, fps, loop_start, start_frame,
+                sprite_x, sprite_y, name, tile_x, tile_y, loop_start))
         return sprites
 
 class AnimatedSprite(pygame.sprite.Sprite):
-    def __init__(self, images, fps, idle_tag,\
-        start_sprite, loc_x, loc_y, sprite_name, w, h):
+    def __init__(self, images, fps, idle_tag,
+        start_sprite, loc_x, loc_y, sprite_name, w, h, loop):
         self.x = loc_x
         self.y = loc_y
         self.name = sprite_name
@@ -136,7 +136,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self._delay = 3000 / fps
         self._last_update = 0
         self._frame = start_sprite
-        self.my_start_sprite = start_sprite 
+        self.my_start_sprite = loop
         self.update(pygame.time.get_ticks())
 
     def update(self, t):
