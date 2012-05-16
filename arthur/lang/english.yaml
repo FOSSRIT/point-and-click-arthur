@@ -1,0 +1,32 @@
+# This is the YAML file used when playing point-and-click-arthur in English.
+
+PLACES:
+-   ID: start
+    ACTIONS:
+    -   first_visit:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT: "Where is that sword? Excalibur?"
+                TEXT: "Excalibur, where did you run off too." # question mark?
+                TEXT: "Oh, hellow. Have you seen a sword around here?" 
+    -   click_lake:
+        -   DIALOG:
+            -   ACTOR: ""
+                TEXT: "You found the magic sword, Excalibur!"
+    -   give_arthur_sword:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT: "Yes! There it is, thank you!"
+                TEXT: "What is your name, so I may thank you proper?"
+
+ITEMS:
+-   ID: sword
+    TEXT: "Excalibur"
+-   ID: wand
+    TEXT: "Merlin's wand"
+
+MISC:
+-   ID: title
+    TEXT: "King Arthur"
+-   ID: subtitle
+    TEXT: "A point-and-click adventure"
