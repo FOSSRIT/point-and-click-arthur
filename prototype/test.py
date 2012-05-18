@@ -95,15 +95,17 @@ class Graphics(object):
             for sprites in arrays:
                 sprites.location = (sprites.x, sprites.y, 100)
                 if sprites.name == "RedKnightWalk":
-                    sprites.x += 3                    
+                    sprites.move(3,0)                  
                 sprites.render(everything.window_surface)
         self.custom_mouse.update()
 
     def load_all_sprites(self):
         self.all_sprites.append(self.compile_images(
+            48, 48, 'birdsprite.png', 20, True, 1, 300, 100, "Dove"))
+        self.all_sprites.append(self.compile_images(
             72, 104, 'walktest.png', 20, False, 0, 200, 100, "RedKnightWalk"))
         self.all_sprites.append(self.compile_images(
-            48, 48, 'birdsprite.png', 20, True, 1, 300, 100, "Dove"))
+            124, 128, 'merlinMagic.png', 20, False, 1, 500, 500, "MerlinMagic"))
 
     def load_sliced_sprites(self, w, h, file_name):
         images = []
@@ -120,11 +122,8 @@ class Graphics(object):
             for sprites in arrays:
                 if sprites.name == id:
                     return sprites.rectangle
-                else:
-                    print "Error, could not find sprite by index"
-                    return pygame.draw.rect(
-                everything.window_surface,
-                (0, 0, 0), (0,0, 1, 1))
+        print "Error, could not find sprite by index"
+        return pygame.draw.rect(everything.window_surface,(0, 0, 0), (0,0, 1, 1))
 
     def compile_images (self, tile_x, tile_y, str, fps,
         loop_start, start_frame, sprite_x, sprite_y, name):
@@ -156,6 +155,8 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self._frame = start_sprite
         self.my_start_sprite = loop
         self.update(pygame.time.get_ticks())
+        self.h = h
+        self.w = w
 
     def update(self, t):
         if (t - self._last_update) > self._delay:
@@ -174,8 +175,12 @@ class AnimatedSprite(pygame.sprite.Sprite):
     def render(self, screen):
         self.update(pygame.time.get_ticks())
         if self.visible == True:
-            self.rectangle.move(self.x, self.y)
             everything.window_surface.blit(self.image, (self.x, self.y))
+
+    def move(self, x, y):
+	self.x += x
+        self.y += y
+        self.rectangle.move_ip(x,y)
 
 class Background(object):
     def __init__(self,str):
@@ -274,6 +279,9 @@ while not quitting:
             mouse.update(graphics.custom_mouse.x, graphics.custom_mouse.y)
             if mouse.click("Dove"):
                 print 'Hit the dove!' # Debug
+                gui.display_text = True
+            if mouse.click("RedKnightWalk"):
+                print 'Hit the Red Knight!' # Debug
                 gui.display_text = True
     # Update everything
     everything.update()
