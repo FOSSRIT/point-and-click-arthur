@@ -6,8 +6,8 @@ from pygame.locals import *
 from random import randint
 
 ### CONSTANTS
-WINDOW_WIDTH = 1200
-WINDOW_HEIGHT = 900
+WINDOW_WIDTH = 1028
+WINDOW_HEIGHT = 768
 TEXT_COLOR = (255, 255, 255)
 
 '''
@@ -33,19 +33,23 @@ class Everything(object):
         surface.blit(text_obj, text_rect)
 
     def update(self):
+        self.window_surface.fill((0,0,0))
         game.update()       
         gui.update()
         background.update()
+        for screens in screenArray:
+            screens.update()
         graphics.update()
-        screen.update()
 
 class Screen(object):
     def __init__ (self, bg):
-        self.background = Background(bg)
+        self.fileName = bg
         self.sprites = []
         self.active = False
     def isActive(self):
-        background = self.background
+        for screens in screenArray:
+            screens.active = False
+        background.background_image(str = self.fileName)
         self.active = True
     def update(self):
         if (self.active == True):
@@ -114,9 +118,11 @@ class Graphics(object):
 
     def load_all_sprites(self):
         self.all_sprites.append(self.compile_images(
-            48, 48, 'birdsprite.png', 20, True, 1, 300, 100, "Dove"))
+            48, 48, 'birdsprite.png', 20, True, 1, 250, 315, "Dove"))
         self.all_sprites.append(self.compile_images(
             64, 96, 'knightWALK.png', 20, False, 0, 200, 100, "RedKnightWalk"))
+        self.all_sprites.append(self.compile_images(
+            53, 97, 'arthurstand.png', 20, False, 0, 150, 550, "ArthurStand"))
         self.all_sprites.append(self.compile_images(
             124, 128, 'merlinMagic.png', 20, False, 1, 500, 500, "MerlinMagic"))
 
@@ -218,7 +224,7 @@ class Background(object):
         //image render
         '''
     def background_image(self,str):
-        pygame.image.load(str)
+        self.image = pygame.image.load(str)
 
     '''
     //animations not 4 game
@@ -267,10 +273,21 @@ graphics = Graphics()
 gui = GUI()
 mouse = MouseEventHandler(0,0)
 clock = pygame.time.Clock()
-screen = Screen("kingarthur.png")
 
-screen.addSprite("Dove")
-screen.isActive()
+screenArray = []
+
+start = Screen("kingarthur.png")
+
+start.addSprite("Dove")
+start.isActive()
+
+screenArray.append(start)
+
+findSword = Screen ("screen1.png")
+findSword.addSprite("ArthurStand")
+
+screenArray.append(findSword)
+
 
 ### START THE GAME LOOP
 
@@ -307,6 +324,8 @@ while not quitting:
             if mouse.click("Dove"):
                 print 'Hit the dove!' # Debug
                 gui.display_text = True
+                findSword.isActive()
+                
             if mouse.click("RedKnightWalk"):
                 print 'Hit the Red Knight!' # Debug
                 gui.display_text = True
