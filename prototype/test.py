@@ -12,8 +12,31 @@ TEXT_COLOR = (255, 255, 255)
 
 '''
 Sprite Names:
-RedKnightWalk
 Dove
+RedKnightWalk
+GreenKnightWalk
+BlueKnightWalk
+MordredWalk
+YellowKnightWalk
+ArthurStand
+MerlinMagic
+ArthurWalk
+Couldron
+GreenKnight
+MerlinMagic
+GUIInventory
+MerlinMagic
+ArthurWalk
+Couldron
+GreenKnight
+GUIInventory
+GUIMapHit
+GUISave
+InventoryItems
+InventoryWorld
+MordredAttack
+RedKnightStand
+MerlinWalk
 '''
 
 class Everything(object):
@@ -122,10 +145,40 @@ class Graphics(object):
         self.all_sprites.append(self.compile_images(
             64, 96, 'knightWALK.png', 20, False, 0, 200, 100, "RedKnightWalk"))
         self.all_sprites.append(self.compile_images(
+            64, 96, 'knightWALKGREEN.png', 20, False, 0, 200, 100, "GreenKnightWalk"))
+        self.all_sprites.append(self.compile_images(
+            64, 96, 'knightWALKBLUE.png', 20, False, 0, 200, 100, "BlueKnightWalk"))
+        self.all_sprites.append(self.compile_images(
+            64, 96, 'knightWALKMORDRED.png', 20, False, 0, 200, 100, "MordredWalk"))
+        self.all_sprites.append(self.compile_images(
+            64, 96, 'knightWALKYELLOW.png', 20, False, 0, 200, 100, "YellowKnightWalk"))
+        self.all_sprites.append(self.compile_images(
             53, 97, 'arthurstand.png', 20, False, 0, 150, 550, "ArthurStand"))
         self.all_sprites.append(self.compile_images(
             124, 128, 'merlinMagic.png', 20, False, 1, 500, 500, "MerlinMagic"))
-
+        self.all_sprites.append(self.compile_images(
+            64, 96, 'arthurWALK.png', 20, False, 0, 500, 500, "ArthurWalk"))
+        self.all_sprites.append(self.compile_images(
+            72, 72, 'couldron.png', 20, False, 1, 500, 500, "Couldron"))
+        self.all_sprites.append(self.compile_images(
+            15, 27, 'greenknight.png', 20, False, 1, 500, 500, "GreenKnight"))
+        self.all_sprites.append(self.compile_images(
+            700, 180, 'GUIInventory.png', 20, False, 1, 500, 500, "GUIInventory"))
+        self.all_sprites.append(self.compile_images(
+            90, 90, 'GUIMaphit.png', 20, False, 1, 500, 500, "GUIMapHit"))
+        self.all_sprites.append(self.compile_images(
+            100, 50, 'GUISave.png', 20, False, 1, 500, 500, "GUISave"))
+        self.all_sprites.append(self.compile_images(
+            126, 120, 'itemsINVENTORY.png', 20, False, 1, 500, 500, "InventoryItems"))
+        self.all_sprites.append(self.compile_images(
+            120, 100, 'itemsWORLD.png', 20, False, 1, 500, 500, "InventoryWorld"))
+        self.all_sprites.append(self.compile_images(
+            100, 132, 'knight-attackMORDRED.png', 20, False, 1, 500, 500, "MordredAttack"))
+        self.all_sprites.append(self.compile_images(
+            60, 96, 'knightstand.png', 20, False, 1, 500, 500, "RedKnightStand"))
+        self.all_sprites.append(self.compile_images(
+            76, 120, 'merlinWALK.png', 20, False, 1, 500, 500, "MerlinWalk"))
+       
     def getSprite(self, sprite):
         print "Looking for " + sprite
         for arrays in self.all_sprites:
