@@ -37,6 +37,25 @@ class Everything(object):
         gui.update()
         background.update()
         graphics.update()
+        screen.update()
+
+class Screen(object):
+    def __init__ (self, bg):
+        self.background = Background(bg)
+        self.sprites = []
+        self.active = False
+    def isActive(self):
+        background = self.background
+        self.active = True
+    def update(self):
+        if (self.active == True):
+            for sprites in self.sprites:
+                sprites.location = (sprites.x, sprites.y, 100)                
+                sprites.render(everything.window_surface)
+    def addSprite(self, sprite):
+        print "Loading " + sprite
+        tempSprite = graphics.getSprite(sprite)
+        self.sprites.append(tempSprite)
 
 class MyMouse(object):
     def __init__(self):
@@ -91,26 +110,30 @@ class Graphics(object):
         self.all_sprites = []
         self.load_all_sprites()
     def update(self):
-        for arrays in self.all_sprites:
-            for sprites in arrays:
-                sprites.location = (sprites.x, sprites.y, 100)
-                if sprites.name == "RedKnightWalk":
-                    sprites.move(3,0)                  
-                sprites.render(everything.window_surface)
         self.custom_mouse.update()
 
     def load_all_sprites(self):
         self.all_sprites.append(self.compile_images(
             48, 48, 'birdsprite.png', 20, True, 1, 300, 100, "Dove"))
         self.all_sprites.append(self.compile_images(
-            72, 104, 'walktest.png', 20, False, 0, 200, 100, "RedKnightWalk"))
+            64, 96, 'knightWALK.png', 20, False, 0, 200, 100, "RedKnightWalk"))
         self.all_sprites.append(self.compile_images(
             124, 128, 'merlinMagic.png', 20, False, 1, 500, 500, "MerlinMagic"))
+
+    def getSprite(self, sprite):
+        print "Looking for " + sprite
+        for arrays in self.all_sprites:
+            for sprites in arrays:
+                print "Sprites: Looking at " + sprites.name + " Comparing it to " + sprite
+                if sprites.name == sprite:
+                    print "Found sprite!"
+                    return sprites
+        print "Error, could not find sprite by name"
 
     def load_sliced_sprites(self, w, h, file_name):
         images = []
         master_image = pygame.image.load(
-            os.path.join('', file_name)).convert_alpha()
+            os.path.join('sprites/sheets/', file_name)).convert_alpha()
         master_width, master_height = master_image.get_size()
         for i in xrange(int(master_width / w)):
             images.append(master_image.subsurface((i * w, 0, w, h)))
@@ -244,6 +267,10 @@ graphics = Graphics()
 gui = GUI()
 mouse = MouseEventHandler(0,0)
 clock = pygame.time.Clock()
+screen = Screen("kingarthur.png")
+
+screen.addSprite("Dove")
+screen.isActive()
 
 ### START THE GAME LOOP
 
