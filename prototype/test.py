@@ -260,7 +260,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
             everything.window_surface.blit(self.image, (self.x, self.y))
 
     def move(self, x, y):
-	self.x += x
+        self.x += x
         self.y += y
         self.rectangle.move_ip(x,y)
 
@@ -277,7 +277,7 @@ class Background(object):
         //image render
         '''
     def background_image(self,str):
-        self.image = pygame.image.load(str)
+        self.image = pygame.image.load(os.path.join('filtered/', str))
 
     '''
     //animations not 4 game
@@ -333,14 +333,38 @@ start = Screen("kingarthur.png")
 
 start.addSprite("Dove")
 start.isActive()
-
 screenArray.append(start)
 
 findSword = Screen ("screen1.png")
 findSword.addSprite("ArthurStand")
-
 screenArray.append(findSword)
 
+Gawain_West = Screen ("Gawain.png")
+screenArray.append(Gawain_West)
+
+Lancelot_Day = Screen ("LancelotDAY.png")
+screenArray.append(Lancelot_Day)
+
+Lancelot_Night = Screen ("LancelotNIGHT.png")
+screenArray.append(Lancelot_Night)
+
+Merlin_Shack = Screen ("merlinshackOUTSIDE.png")
+screenArray.append(Merlin_Shack)
+
+Castle = Screen ("outsideCasltleField.png")
+screenArray.append(Castle)
+
+Castle_Halls = Screen ("castleHalls.png")
+screenArray.append(Castle_Halls)
+
+Keep = Screen ("keep.png")
+screenArray.append(Keep)
+
+Agravain_Forest = Screen ("forestAgravain.png")
+screenArray.append(Agravain_Forest)
+
+Camelot = Screen ("banquethall.png")
+screenArray.append(Camelot)
 
 ### START THE GAME LOOP
 
