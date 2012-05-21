@@ -6,7 +6,7 @@ Start
 Find Sword
 - BG = screen1.png
 - Sprites: Arthurstand.png : itemsWORLD.png[0]
-- Mouse Events: Click sword (added to inventory GUI)
+- Mouse Events: Click sword (added to inventory GUI). Click path to Merlin Shack/Gawain West/Lancelot East
 
 Merlin Shack
 - BG = merlinshackOUTSIDE.png
