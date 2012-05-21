@@ -38,6 +38,20 @@ MordredAttack
 RedKnightStand
 MerlinWalk
 Monster
+
+GrailWorld
+WandWorld
+DoveSingWorld
+DoveWorld
+SwordWorld
+
+SwordInventory
+SoupInventory
+DoveInventory
+DoveSingInventory
+WandInventory
+GrailInventory
+BeltInventory
 '''
 
 class Everything(object):
@@ -142,7 +156,7 @@ class Graphics(object):
 
     def load_all_sprites(self):
         self.all_sprites.append(self.compile_images(
-            48, 48, 'birdsprite.png', 20, True, 1, 250, 315, "Dove"))
+            48, 48, 'birdsprite.png', 20, True, 0, 250, 315, "Dove"))
         self.all_sprites.append(self.compile_images(
             64, 96, 'knightWALK.png', 20, True, 0, 200, 100, "RedKnightWalk"))
         self.all_sprites.append(self.compile_images(
@@ -156,30 +170,64 @@ class Graphics(object):
         self.all_sprites.append(self.compile_images(
             53, 97, 'arthurstand.png', 20, False, 0, 125, 565, "ArthurStand"))
         self.all_sprites.append(self.compile_images(
-            124, 128, 'merlinMagic.png', 20, True, 1, 450, 400, "MerlinMagic"))
+            124, 128, 'merlinMagic.png', 20, True, 0, 450, 400, "MerlinMagic"))
         self.all_sprites.append(self.compile_images(
             64, 96, 'arthurWALK.png', 20, True, 0, 500, 500, "ArthurWalk"))
         self.all_sprites.append(self.compile_images(
-            76, 72, 'couldron.png', 20, False, 1, 610, 325, "Couldron"))
+            76, 72, 'couldron.png', 20, False, 0, 610, 325, "Couldron"))
         self.all_sprites.append(self.compile_images(
-            60, 100, 'greenknight.png', 20, False, 1, 600, 550, "GreenKnight"))
+            60, 100, 'greenknight.png', 20, False, 0, 600, 550, "GreenKnight"))
         self.all_sprites.append(self.compile_images(
-            700, 180, 'GUIInventory.png', 20, False, 1, 500, 500, "GUIInventory"))
+            100, 50, 'GUISave.png', 20, False, 0, 500, 500, "GUISave"))
         self.all_sprites.append(self.compile_images(
-            100, 50, 'GUISave.png', 20, False, 1, 500, 500, "GUISave"))
+            126, 120, 'itemsINVENTORY.png', 20, False, 0, 500, 500, "InventoryItems"))
         self.all_sprites.append(self.compile_images(
-            126, 120, 'itemsINVENTORY.png', 20, False, 1, 500, 500, "InventoryItems"))
+            120, 100, 'itemsWORLD.png', 20, True, 0, 800, 600, "SwordWorld"))
         self.all_sprites.append(self.compile_images(
-            120, 100, 'itemsWORLD.png', 20, False, 1, 500, 500, "InventoryWorld"))
+            120, 100, 'itemsWORLD.png', 20, True, 2, 700, 150, "DoveWorld"))
+        self.getSprite("DoveWorld").my_start_sprite = 2
         self.all_sprites.append(self.compile_images(
-            100, 132, 'knight-attackMORDRED.png', 20, True, 1, 645, 555, "MordredAttack"))
+            120, 100, 'itemsWORLD.png', 20, True, 3, 500, 500, "DoveSingWorld"))
+        self.getSprite("DoveSingWorld").my_start_sprite = 3
         self.all_sprites.append(self.compile_images(
-            60, 96, 'knightstand.png', 20, False, 1, 525, 520, "RedKnightStand"))
+            120, 100, 'itemsWORLD.png', 20, True, 4, 500, 500, "WandWorld"))
+        self.getSprite("WandWorld").my_start_sprite = 4
         self.all_sprites.append(self.compile_images(
-            76, 120, 'merlinWALK.png', 20, False, 1, 500, 500, "MerlinWalk"))
+            120, 100, 'itemsWORLD.png', 20, True, 5, 500, 500, "GrailWorld"))
+        self.getSprite("GrailWorld").my_start_sprite = 5
         self.all_sprites.append(self.compile_images(
-            96, 120, 'monster.png', 20, True, 1, 700, 555, "Monster"))
+            100, 132, 'knight-attackMORDRED.png', 20, True, 0, 645, 555, "MordredAttack"))
+        self.all_sprites.append(self.compile_images(
+            60, 96, 'knightstand.png', 20, False, 0, 525, 520, "RedKnightStand"))
+        self.all_sprites.append(self.compile_images(
+            76, 120, 'merlinWALK.png', 20, False, 0, 500, 500, "MerlinWalk"))
+        self.all_sprites.append(self.compile_images(
+            96, 120, 'monster.png', 20, True, 0, 700, 555, "Monster"))
+        
+        #AJ: The following are the icons for the inventory GUI. You'll need to position them accordingly. You can either do it here, or use animated Sprite move function to place them correctly later in the code
+        #To change it now, edit the numbers after the 0, that's the x and y of the sprites
+        self.all_sprites.append(self.compile_images(
+            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "SwordInventory"))
+        self.all_sprites.append(self.compile_images(
+            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "SoupInventory"))
+        self.getSprite("SoupInventory").my_start_sprite = 1
+        self.all_sprites.append(self.compile_images(
+            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "DoveInventory"))
+        self.getSprite("DoveInventory").my_start_sprite = 2
+        self.all_sprites.append(self.compile_images(
+            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "DoveSingInventory"))
+        self.getSprite("DoveSingInventory").my_start_sprite = 3
+        self.all_sprites.append(self.compile_images(
+            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "WandInventory"))
+        self.getSprite("WandInventory").my_start_sprite = 4
+        self.all_sprites.append(self.compile_images(
+            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "GrailInventory"))
+        self.getSprite("GrailInventory").my_start_sprite = 5
+        self.all_sprites.append(self.compile_images(
+            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "BeltInventory"))
+        self.getSprite("BeltInventory").my_start_sprite = 6
 
+        #GUI Hit boxes, these are to move around the map. For children it's better to leave them visible, some turn visible only when the path opens
         self.all_sprites.append(self.compile_images(
             90, 90, 'GUIMaphit.png', 20, False, 1, 925, 400, "GUIMapHitForest1"))
         self.all_sprites.append(self.compile_images(
@@ -193,21 +241,21 @@ class Graphics(object):
         self.all_sprites.append(self.compile_images(
             90, 90, 'GUIMaphit.png', 20, False, 1, 25, 700, "GUIMapHitLancelot"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 500, 500, "GUIMapHitShack"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 925, 275, "GUIMapHitShack"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 500, 500, "GUIMapHitCastleInside1"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 175, 270, "GUIMapHitCastleInside1"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 500, 500, "GUIMapHitCastleInside2"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 900, 700, "GUIMapHitCastleInside2"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 500, 500, "GUIMapHitClearing1"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 350, 335, "GUIMapHitClearing1"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 500, 500, "GUIMapHitClearing2"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 900, 700, "GUIMapHitClearing2"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 500, 500, "GUIMapHitClearing3"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 25, 700, "GUIMapHitClearing3"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 500, 500, "GUIMapHitKeep"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 25, 700, "GUIMapHitKeep"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 500, 500, "GUIMapHitAgravain"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 900, 700, "GUIMapHitAgravain"))
  
     def getSprite(self, sprite):
         #print "Looking for " + sprite
@@ -266,7 +314,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self._delay = 3000 / fps
         self._last_update = 0
         self._frame = start_sprite
-        self.my_start_sprite = loop
+        self.my_start_sprite = 0
         self.update(pygame.time.get_ticks())
         self.h = h
         self.w = w
@@ -281,7 +329,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
                     self._frame += -1
                 
             if self.idle == True:
-                self._frame = 0 # idle. 
+                self._frame = self.my_start_sprite # idle. 
                                 # Could probably edit this slightly
                                 # and make an idle animation
             self.image = self._images[self._frame]
@@ -291,7 +339,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.update(pygame.time.get_ticks())
         if self.visible == True:
             everything.window_surface.blit(self.image, (self.x, self.y))
-
+            
     def play(self):
         self.idle = False
 
@@ -378,32 +426,36 @@ screenArray.append(start)
 
 findSword = Screen ("screen1.png")
 findSword.addSprite("ArthurStand")
+findSword.addSprite("SwordWorld")
 findSword.addSprite("GUIMapHitForest1")
 findSword.addSprite("GUIMapHitForest2")
 findSword.addSprite("GUIMapHitForest3")
-#Add sword from GUI 
+
 screenArray.append(findSword)
 
 Gawain_West = Screen ("Gawain.png")
 Gawain_West.addSprite("ArthurStand")
+Gawain_West.addSprite("DoveWorld")
 Gawain_West.addSprite("RedKnightStand")
 Gawain_West.addSprite("GreenKnight")
 Gawain_West.addSprite("GUIMapHitGawain1")
 Gawain_West.addSprite("GUIMapHitGawain2")
-#Add dove from GUI
+
 screenArray.append(Gawain_West)
 
 Lancelot_Day = Screen ("LancelotDAY.png")
 Lancelot_Day.addSprite("ArthurStand")
 Lancelot_Day.addSprite ("BlueKnightWalk")
+Lancelot_Day.addSprite ("WandWorld")
 Lancelot_Day.addSprite ("GUIMapHitLancelot")
-#Add wand from GUI
+
 screenArray.append(Lancelot_Day)
 
 Lancelot_Night = Screen ("LancelotNIGHT.png")
 Lancelot_Night.addSprite("ArthurStand")
+Lancelot_Night.addSprite("GrailWorld")
 Lancelot_Night.addSprite("BlueKnightWalk")
-#Add grail from GUI
+
 screenArray.append(Lancelot_Night)
 
 Merlin_Shack = Screen ("merlinshackOUTSIDE.png")
@@ -431,6 +483,7 @@ Keep = Screen ("keep.png")
 Keep.addSprite("ArthurStand")
 Keep.addSprite("MordredAttack")
 Keep.addSprite("Monster")
+Keep.addSprite("DoveSingWorld")
 Keep.addSprite("GUIMapHitKeep")
 screenArray.append(Keep)
 
@@ -476,14 +529,54 @@ while not quitting:
                 gui.rollover = False
         if event.type == pygame.MOUSEBUTTONDOWN \
             and pygame.mouse.get_pressed():
-            mouse.update(graphics.custom_mouse.x, graphics.custom_mouse.y)
-            current_screen += 1
-            screenArray[current_screen].isActive()
+                if start.active == True:
+                    findSword.isActive()
+                    #Title screen code. This moves to the first screen, so put inits for the logic for screen 1 after here
+                    
+                if  findSword.active == True:
+                    #Logic for the first page
+                    if mouse.click("GUIMapHitForest1"):
+                        Gawain_West.isActive()
+                    if mouse.click("GUIMapHitForest2"):
+                        Lancelot_Day.isActive()
+                    if mouse.click("GUIMapHitForest3"):
+                        Merlin_Shack.isActive()
+                        
+                if Gawain_West.active == True:
+                    # Logic for Gawain forest
+                    if mouse.click("GUIMapHitGawain1"):
+                        findSword.isActive()
+                    if mouse.click("GUIMapHitGawain2"):
+                        Castle_Halls.isActive()
+                    #Give belt to Gawain: graphics.getSprite("GreenKnight").visible = False 
+
+                if Merlin_Shack.active == True:
+                    # Logic for Merlin's Shack
+                    if mouse.click("GUIMapHitShack"):
+                        findSword.isActive()
+                    #Click soup: graphics.getSprite("MerlinMagic").play_once()
+                        
+                if Lancelot_Day.active == True:
+                    # Logic for Lancelot (Day)
+                    if mouse.click("GUIMapHitLancelot"):
+                        findSword.isActive()
+                        
+                if Castle_Halls.active == True:
+                    #Logic for Castle Hall (Bors room)
+                    if mouse.click("GUIMapHitCastleInside1"):
+                        Gawain_West.isActive()
+                    if mouse.click("GUIMapHitCastleInside2"):
+                        Castle.isActive()
+                    #Giving Bors the soup does nothing other than set the trigger for Lancelot's quest. 
+                
+            #mouse.update(graphics.custom_mouse.x, graphics.custom_mouse.y)
+            #current_screen += 1
+            #screenArray[current_screen].isActive()
 
             #The following event shows how to make a "click to play once" event. This will play the animation exactly once, useful for the Monster event and Merlin's magic
-            '''if mouse.click("Dove"):
-                print 'Hit the dove!' # Debug
-                graphics.getSprite("Dove").play_once()'''
+            #if mouse.click("Dove"):
+                #print 'Hit the dove!' # Debug
+                #graphics.getSprite("Dove").play_once()
                 
     # Update everything
     everything.update()
