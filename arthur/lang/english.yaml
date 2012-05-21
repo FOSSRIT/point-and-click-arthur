@@ -1,5 +1,16 @@
 # This is the YAML file used when playing point-and-click-arthur in English.
-# This file does NOT contain game logic
+# This file:
+# - does NOT contain game logic
+# - can be tested with test_yaml.py
+#
+# This file is divided into three sections, PLACES, ITEMS, and MISC.
+# ITEMS and MISC are very direct, their members consisting of an ID and
+# the corresponding text. PLACES includes a number of IDs (the different
+# locations in the game), which in turn contain ACTIONS that the player can
+# do. These actions generate DIALOGs. Multiple DIALOGs in an action are split
+# as such to divide between mid-conversation animations and the like, and are
+# commented appropriately. DIALOGs consist of ACTOR(s) and an list of their
+# dialog.
 
 PLACES:
 -   ID: start
@@ -9,8 +20,8 @@ PLACES:
             -   ACTOR: "Arthur"
                 TEXT:
                     - "Where is that sword? Excalibur?"
-                    - "Excalibur, where did you run off too." # question mark?
-                    - "Oh, hellow. Have you seen a sword around here?" 
+                    - "Excalibur, where did you run off too?"
+                    - "Oh, hello. Have you seen a sword around here?" 
     -   click_lake:
         -   DIALOG:
             -   ACTOR: ""
@@ -42,7 +53,6 @@ PLACES:
             -   ACTOR: "Arthur"
                 TEXT:
                     - "You're modest, but I insist, let's head out."
-
 -   ID: shack
     ACTIONS:
     -   first_visit:
@@ -60,6 +70,188 @@ PLACES:
                     - "Will you be joining us?"
             -   ACTOR: "Merlin"
                 TEXT:
+                    - "I would be honored, but I cannot leave right now."
+                    - "I have lost my wand and I do not want to"
+                    - "travel without it."
+                    - "If you can find my wand, I will certainly attend."
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Alright Merlin, I will look for your wand."
+    -   click_soup:
+        -   DIALOG:
+            -   ACTOR: "Merlin"
+                TEXT: 
+                    - "Do be careful, that soup is very hot!"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "It does smell delicious, though."
+            -   ACTOR: "Merlin"
+                TEXT:
+                    - "Hang on Arthur, I will give you some to go."
+                    - "Handle with care, it's piping!"
+            -   ACTOR: "Hail!"
+                TEXT:
+                    - "Merlin gave you some hot soup!"
+                    - "It smells great, but it's too hot to eat now,"
+                    - "hang onto it."
+    -   give_wand:
+        -   DIALOG:
+            -   ACTOR: "Merlin"
+                TEXT:
+                    - "My wand! My wand! Thank you for your help."
+                    - "Let me see if it still works, ha!"
+        -   DIALOG: # Armored Girdle appears
+            -   ACTOR: "Merlin"
+                TEXT:
+                    - "Well... that was unexpected."
+                    - "Here, Arthur, you probably could find a use for this."
+            -   ACTOR: "Hail!"
+                TEXT:
+                    - "You got an armored... girdle?"
+                    - "Who could possibly want this?"
+            -   ACTOR: "Merlin"
+                TEXT:
+                    - "Alright, my wand is working, for the most part."
+                    - "I will leave for the banquet, but please"
+                    - "allow me to finish up some minor preparations first."
+-   ID: lancelot
+    ACTIONS:
+    -   first_visit:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Hail! There is my bravest knight, Sir Lancelot du Lac."
+                    - "Fair Lancelot, how are you?"
+            -   ACTOR: "Lancelot"
+                TEXT:
+                    - "My Lord, I wish to collect the Holy Grail in your glory,"
+                    - "but I cannot without help."
+                    - "Sir Bors and Sir Agravain were supposed to meet me here"
+                    - "hours ago, but they are nowhere to be found."
+                    - "I do not wish to push unto you my burdens,"
+                    - "but can you search for Bors and Agravain for me?"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "We will."
+    -   click_on_wand:
+        -   DIALOG:
+            -   ACTOR: "Hail!"
+                TEXT: "You found Merlin's Wand. How did this get here?"
+-   ID: gawain
+    ACTIONS:
+    -   first_visit:
+        -   DIALOG:
+            -   ACTOR: "Gawain"
+                TEXT:
+                    - "Arthur, I am in need of your immediate help!"
+                    - "This Green Knight has challeged me to a duel,"
+                    - "but he has overpowered me!"
+                    - "I need some kind of special armor, an advantage over him!"
+                    - "Armor he would never see coming..."
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "We will keep our eyes open."
+                    - "Be careful Gawain, we will return."
+    -   click_on_dove:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "What a lovely bird. Let me see if it can follow me."
+            -   ACTOR: "Hail!"
+                TEXT:
+                    - "You found a Pure White Dove!"
+                    - "This bird trusts you; it seems to know you are special."
+    -   give_armored_girdle:
+        -   DIALOG:
+            -   ACTOR: "Gawain"
+                TEXT:
+                    - "This is the most curious of armor!"
+        -   DIALOG: # Gawain puts armor on neck
+            -   ACTOR: "Gawain"
+                TEXT:
+                    - "Well, that seems to fit right there."
+                    - "Now, Green Knight, we fight!"
+        -   DIALOG: # Gawain beats Green Knight
+            -   ACTOR: "Gawain"
+                TEXT:
+                    - "Ha! Take that!"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Gawain, you have showed such bravery."
+                    - "I invite you to a banquet at Camelot this evening,"
+                    - "will you be attending?"
+            -   ACTOR: "Gawain"
+                TEXT:
+                    - "But of course."
+        -   DIALOG: # Path to castle is cleared, knight is gone
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Now that this is taken care of, let us head forward."
+-   ID: castle
+    -   first_visit:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Who is that laying on the ground?"
+    -   click_man:
+        -   DIALOG:
+            -   ACTOR: "Bors"
+                TEXT:
+                    - "Ugh... Arthur... is that you?"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Good Sir Bors, what happened!?"
+            -   ACTOR: "Bors"
+                TEXT:
+                    - "Arthur..."
+                    - "It has been hours..."
+                    - "Since I last ate..."
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Oh Bors, get up, Lancelot needs your help!"
+            -   ACTOR: "Bors"
+                TEXT:
+                    - "I cannot move, it pains me."
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Fine, we will find you a snack."
+    -   give_soup:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Patience Sir Bors, here."
+        -   DIALOG: # Bors eats the soup
+            -   ACTOR: "Bors"
+                TEXT:
+                    - "Oh, thank you Arthur."
+                    - "I will travel to Lancelot!"
+                    - "I hope he has some more food..."
+-   ID: clearing
+    -   first_visit:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "An empty field. There doesn't seem to be anything here."
+                    - "But I hear some people in the distance,"
+                    - "it might be worth it to travel in the forest"
+                    - "or to that keep in the distance."
+-   ID: forest
+    -   first_visit:
+        -   DIALOG:
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "I could have sworn I heard a voice in this direction."
+                    - "Ther doesn't seem to be anyone here."
+            -   ACTOR: "???"
+                TEXT:
+                    - "Hello down there! Arthur, is that you?"
+        
+
+
+                
+
+        
+
 
 
 ITEMS:
