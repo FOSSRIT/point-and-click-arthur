@@ -12,7 +12,8 @@
 # commented appropriately. DIALOGs consist of ACTOR(s) and an list of their
 # dialog.
 #
-# Messages which are spoken by no-one are given an ACTOR of "Hail!".
+# Messages which are spoken by no-one are given an ACTOR of "Hail!" or something
+# appropriate.
 
 PLACES:
 -   ID: start
@@ -190,6 +191,7 @@ PLACES:
                 TEXT:
                     - "Now that this is taken care of, let us head forward."
 -   ID: castle
+    ACTIONS:
     -   first_visit:
         -   DIALOG:
             -   ACTOR: "Arthur"
@@ -232,6 +234,7 @@ PLACES:
                     - "I will travel to Lancelot!"
                     - "I hope he has some more food..."
 -   ID: clearing
+    ACTIONS:
     -   first_visit:
         -   DIALOG:
             -   ACTOR: "Arthur"
@@ -241,6 +244,7 @@ PLACES:
                     - "it might be worth it to travel in the forest"
                     - "or to that keep in the distance."
 -   ID: forest
+    ACTIONS:
     -   first_visit:
         -   DIALOG:
             -   ACTOR: "Arthur"
@@ -306,6 +310,109 @@ PLACES:
                     - "You were given a Singing Dove."
                     - "The dove is singing a lovely song,"
                     - "it could probably calm even the meanest spirits."
+-   ID: keep
+    ACTIONS:
+    -   first_visit:
+        -   DIALOG: # Mordred and monster fight
+            -   ACTOR: "Mordred"
+                TEXT:
+                    - "Savage worm, I am Mordred, Heir to the throne of Camelot!"
+                    - "Bow before me and surrender!"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Mordred, what are you doing, be careful!"
+            -   ACTOR: "Mordred"
+                TEXT:
+                    - "Arthur, why are you here!"
+                    - "Can't you see I am busy?"
+                    - "I don't need your help!"
+            -   ACTOR: "Arthur (to you)"
+                TEXT:
+                    - "Such a foolish boy."
+                    - "It seems he is having some problems fighting that monster."
+                    - "I think if we could cause a distraction,"
+                    - "Mordred could win."
+        -   DIALOG: # Arthur yells
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "That doesn't seem to have worked."
+                    - "It would seem the two are too busy to notice,"
+                    - "we need to find a different sort of noise."
+    -   use_singing_dove:
+        -   DIALOG: # The bird flies to branch, sings, both look, monster stares
+            -   ACTOR: "Mordred"
+                TEXT:
+                    - "HA! Take this!"
+        -   DIALOG: # Mordred stabs the monster, who falls over
+            -   ACTOR: "Mordred"
+                TEXT:
+                    - "Farewell, savage monster."
+                    - "Arthur, did you see that?"
+                    - "I bested the monster with no problems."
+                    - "I didn't need your help, see?"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Of course, Mordred..."
+                    - "Hey, there's a banquet tongiht at Camelot,"
+                    - "you should attend."
+            -   ACTOR: "Mordred"
+                TEXT:
+                    - "We'll see."
+        -   DIALOG: # Mordred leaves
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "We have all the knights!"
+                    - "We should head back and help Lancelot,"
+                    - "he might need more help."
+-   ID: lancelot_evening
+    ACTIONS:
+    -   first_visit:
+        -   DIALOG:
+            -   ACTOR: "Lancelot"
+                TEXT:
+                    - "Bors, Agravain... what took you so long?"
+            -   ACTOR: "Bors"
+                TEXT:
+                    - "Sorry sir, I was fighting a bear!"
+            -   ACTOR: "Agravain"
+                TEXT:
+                    - "You dope, you were probably napping."
+            -   ACTOR: "Lancelot"
+                TEXT:
+                    - "Enough! Now that you two are here,"
+                    - "we can finally look for the Grail."
+                    - "Oh, Arthur!"
+                    - "Hello my King, did you want to help us look for the grail?"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "But of course, with {player_name} by my side,"
+                    - "this should be no problem."
+-   ID: search_for_the_grail
+    ACTIONS:
+    -   get_grail:
+        -   DIALOG:
+            -   ACTOR: "Glorious Day!!"
+                TEXT:
+                    - "You found the Holy Grail."
+                    - "Camelot will be known through the lands as"
+                    - "the home to this spectacular piece of history!"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "{player_name}, you have truly done Camelot"
+                    - "a great service. Your investigation skills and ability"
+                    - "to pick up on clues is unmatched."
+                    - "I am honored to call you knight of my round table."
+                    - "Let us feast!"
+-   ID: feast
+    ACTIONS:
+    -   first_visit:
+        -   DIALOG:
+            -   ACTOR: "Quest's End"
+                TEXT:
+                    - "Arthur and his Round Table celebrate your glories."
+                    - "You have completed the investigation and"
+                    - "found all of Arthur's knights."
+                    - "Now rest brave hero, you have earned it."
 ITEMS:
 -   ID: sword
     TEXT: "Excalibur"
