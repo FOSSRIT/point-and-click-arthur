@@ -187,13 +187,13 @@ class Graphics(object):
             120, 100, 'itemsWORLD.png', 20, True, 2, 700, 150, "DoveWorld"))
         self.getSprite("DoveWorld").my_start_sprite = 2
         self.all_sprites.append(self.compile_images(
-            120, 100, 'itemsWORLD.png', 20, True, 3, 500, 500, "DoveSingWorld"))
+            120, 100, 'itemsWORLD.png', 20, True, 3, 900, 200, "DoveSingWorld"))
         self.getSprite("DoveSingWorld").my_start_sprite = 3
         self.all_sprites.append(self.compile_images(
             120, 100, 'itemsWORLD.png', 20, True, 4, 500, 500, "WandWorld"))
         self.getSprite("WandWorld").my_start_sprite = 4
         self.all_sprites.append(self.compile_images(
-            120, 100, 'itemsWORLD.png', 20, True, 5, 500, 500, "GrailWorld"))
+            120, 100, 'itemsWORLD.png', 20, True, 5, 900, 50, "GrailWorld"))
         self.getSprite("GrailWorld").my_start_sprite = 5
         self.all_sprites.append(self.compile_images(
             100, 132, 'knight-attackMORDRED.png', 20, True, 0, 645, 555, "MordredAttack"))
@@ -237,7 +237,7 @@ class Graphics(object):
         self.all_sprites.append(self.compile_images(
             90, 90, 'GUIMaphit.png', 20, False, 1, 350, 500, "GUIMapHitGawain1"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 900, 700, "GUIMapHitGawain2"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 900, 500, "GUIMapHitGawain2"))
         self.all_sprites.append(self.compile_images(
             90, 90, 'GUIMaphit.png', 20, False, 1, 25, 700, "GUIMapHitLancelot"))
         self.all_sprites.append(self.compile_images(
@@ -249,11 +249,11 @@ class Graphics(object):
         self.all_sprites.append(self.compile_images(
             90, 90, 'GUIMaphit.png', 20, False, 1, 350, 335, "GUIMapHitClearing1"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 900, 700, "GUIMapHitClearing2"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 900, 500, "GUIMapHitClearing2"))
         self.all_sprites.append(self.compile_images(
             90, 90, 'GUIMaphit.png', 20, False, 1, 25, 700, "GUIMapHitClearing3"))
         self.all_sprites.append(self.compile_images(
-            90, 90, 'GUIMaphit.png', 20, False, 1, 25, 700, "GUIMapHitKeep"))
+            90, 90, 'GUIMaphit.png', 20, False, 1, 900, 700, "GUIMapHitKeep"))
         self.all_sprites.append(self.compile_images(
             90, 90, 'GUIMaphit.png', 20, False, 1, 900, 700, "GUIMapHitAgravain"))
  
@@ -484,6 +484,7 @@ Keep.addSprite("ArthurStand")
 Keep.addSprite("MordredAttack")
 Keep.addSprite("Monster")
 Keep.addSprite("DoveSingWorld")
+graphics.getSprite("DoveSingWorld").visible = False
 Keep.addSprite("GUIMapHitKeep")
 screenArray.append(Keep)
 
@@ -529,12 +530,17 @@ while not quitting:
                 gui.rollover = False
         if event.type == pygame.MOUSEBUTTONDOWN \
             and pygame.mouse.get_pressed():
+            #Useful sprite control quick reference
+            #graphics.getSprite("SPRITE_NAME").visible = False //sets sprite to be invisible (or visible is True). Useful for inventory items that are collected
+            #graphics.getSprite("SPRITE_NAME").play_once() //plays the animation exactly once and stops at the last frame
+            #graphics.getSprite("SPRITE_NAME").play() //plays, loops
+            
                 if start.active == True:
                     findSword.isActive()
                     #Title screen code. This moves to the first screen, so put inits for the logic for screen 1 after here
                     
                 if  findSword.active == True:
-                    #Logic for the first page
+                    #Logic for the first screen (arthur sword)
                     if mouse.click("GUIMapHitForest1"):
                         Gawain_West.isActive()
                     if mouse.click("GUIMapHitForest2"):
@@ -560,6 +566,7 @@ while not quitting:
                     # Logic for Lancelot (Day)
                     if mouse.click("GUIMapHitLancelot"):
                         findSword.isActive()
+                    # if agravain and bors are helped: Lancelot_Night.active() (this should just skip the day one and jump to night... hopefully)
                         
                 if Castle_Halls.active == True:
                     #Logic for Castle Hall (Bors room)
@@ -567,8 +574,33 @@ while not quitting:
                         Gawain_West.isActive()
                     if mouse.click("GUIMapHitCastleInside2"):
                         Castle.isActive()
-                    #Giving Bors the soup does nothing other than set the trigger for Lancelot's quest. 
-                
+                    #Giving Bors the soup does nothing other than set the trigger for Lancelot's quest.
+
+                if Castle.active == True:
+                    #No logic on this screen. This is purely a movement screen
+                    if mouse.click("GUIMapHitClearing1"):
+                        Castle_Halls.isActive()
+                    if mouse.click("GUIMapHitClearing2"):
+                        Agravain_Forest.isActive()
+                    if mouse.click("GUIMapHitClearing3"):
+                        Keep.isActive()
+
+                if Keep.active == True:
+                    # Logic for Mordred scene (Keep). When singing dove is used on Monster, monster and mordred(attack) play once. Also make dovesinging visible = true
+                    if mouse.click("GUIMapHitKeep"):
+                        Castle.isActive()
+
+                if Agravain_Forest.active == True:
+                    #Logic for Aggravain scene. Use dove on Agravain, the dove turns into the singing dove. Also a flag for Lancelot's quest (Must have helped Agravain and Bors)
+                    if mouse.click("GUIMapHitAgravain"):
+                        Castle.isActive()
+
+                if Lancelot_Day.active == True:
+                    if mouse.click("GUIMapHitAgravain"):
+                        # play some text
+                        Camelot.isActive()
+                    #Logic for the last little interaction
+                        
             #mouse.update(graphics.custom_mouse.x, graphics.custom_mouse.y)
             #current_screen += 1
             #screenArray[current_screen].isActive()
