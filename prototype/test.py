@@ -143,25 +143,25 @@ class Graphics(object):
         self.all_sprites.append(self.compile_images(
             48, 48, 'birdsprite.png', 20, True, 1, 250, 315, "Dove"))
         self.all_sprites.append(self.compile_images(
-            64, 96, 'knightWALK.png', 20, False, 0, 200, 100, "RedKnightWalk"))
+            64, 96, 'knightWALK.png', 20, True, 0, 200, 100, "RedKnightWalk"))
         self.all_sprites.append(self.compile_images(
-            64, 96, 'knightWALKGREEN.png', 20, False, 0, 200, 100, "GreenKnightWalk"))
+            64, 96, 'knightWALKGREEN.png', 20, True, 0, 200, 100, "GreenKnightWalk"))
         self.all_sprites.append(self.compile_images(
-            64, 96, 'knightWALKBLUE.png', 20, False, 0, 200, 100, "BlueKnightWalk"))
+            64, 96, 'knightWALKBLUE.png', 20, True, 0, 200, 100, "BlueKnightWalk"))
         self.all_sprites.append(self.compile_images(
-            64, 96, 'knightWALKMORDRED.png', 20, False, 0, 200, 100, "MordredWalk"))
+            64, 96, 'knightWALKMORDRED.png', 20, True, 0, 200, 100, "MordredWalk"))
         self.all_sprites.append(self.compile_images(
-            64, 96, 'knightWALKYELLOW.png', 20, False, 0, 200, 100, "YellowKnightWalk"))
+            64, 96, 'knightWALKYELLOW.png', 20, True, 0, 200, 100, "YellowKnightWalk"))
         self.all_sprites.append(self.compile_images(
             53, 97, 'arthurstand.png', 20, False, 0, 150, 550, "ArthurStand"))
         self.all_sprites.append(self.compile_images(
-            124, 128, 'merlinMagic.png', 20, False, 1, 500, 500, "MerlinMagic"))
+            124, 128, 'merlinMagic.png', 20, True, 1, 450, 400, "MerlinMagic"))
         self.all_sprites.append(self.compile_images(
-            64, 96, 'arthurWALK.png', 20, False, 0, 500, 500, "ArthurWalk"))
+            64, 96, 'arthurWALK.png', 20, True, 0, 500, 500, "ArthurWalk"))
         self.all_sprites.append(self.compile_images(
-            72, 72, 'couldron.png', 20, False, 1, 500, 500, "Couldron"))
+            76, 72, 'couldron.png', 20, False, 1, 610, 325, "Couldron"))
         self.all_sprites.append(self.compile_images(
-            15, 27, 'greenknight.png', 20, False, 1, 500, 500, "GreenKnight"))
+            60, 100, 'greenknight.png', 20, False, 1, 400, 550, "GreenKnight"))
         self.all_sprites.append(self.compile_images(
             700, 180, 'GUIInventory.png', 20, False, 1, 500, 500, "GUIInventory"))
         self.all_sprites.append(self.compile_images(
@@ -337,34 +337,55 @@ screenArray.append(start)
 
 findSword = Screen ("screen1.png")
 findSword.addSprite("ArthurStand")
+#Add sword from GUI 
 screenArray.append(findSword)
 
 Gawain_West = Screen ("Gawain.png")
+Gawain_West.addSprite("ArthurStand")
+Gawain_West.addSprite("RedKnightStand")
+Gawain_West.addSprite("GreenKnight")
+#Add dove from GUI
 screenArray.append(Gawain_West)
 
 Lancelot_Day = Screen ("LancelotDAY.png")
+Lancelot_Day.addSprite("ArthurStand")
+Lancelot_Day.addSprite ("BlueKnightWalk")
+#Add wand from GUI
 screenArray.append(Lancelot_Day)
 
 Lancelot_Night = Screen ("LancelotNIGHT.png")
+Lancelot_Night.addSprite("ArthurStand")
+Lancelot_Night.addSprite("BlueKnightWalk")
+#Add grail from GUI
 screenArray.append(Lancelot_Night)
 
 Merlin_Shack = Screen ("merlinshackOUTSIDE.png")
+Merlin_Shack.addSprite("ArthurStand")
+Merlin_Shack.addSprite ("Couldron")
+Merlin_Shack.addSprite ("MerlinMagic")
 screenArray.append(Merlin_Shack)
 
-Castle = Screen ("outsideCasltleField.png")
-screenArray.append(Castle)
-
 Castle_Halls = Screen ("castleHalls.png")
+Castle_Halls.addSprite("ArthurStand")
+Castle_Halls.addSprite ("GreenKnightWalk")
 screenArray.append(Castle_Halls)
 
+Castle = Screen ("outsideCasltleField.png")
+Castle.addSprite("ArthurStand")
+screenArray.append(Castle)
+
 Keep = Screen ("keep.png")
+Keep.addSprite("ArthurStand")
 screenArray.append(Keep)
 
 Agravain_Forest = Screen ("forestAgravain.png")
+Agravain_Forest.addSprite("ArthurStand")
 screenArray.append(Agravain_Forest)
 
 Camelot = Screen ("banquethall.png")
 screenArray.append(Camelot)
+
+current_screen = 0
 
 ### START THE GAME LOOP
 
@@ -398,14 +419,16 @@ while not quitting:
         if event.type == pygame.MOUSEBUTTONDOWN \
             and pygame.mouse.get_pressed():
             mouse.update(graphics.custom_mouse.x, graphics.custom_mouse.y)
-            if mouse.click("Dove"):
+            current_screen += 1
+            screenArray[current_screen].isActive()
+            '''if mouse.click("Dove"):
                 print 'Hit the dove!' # Debug
                 gui.display_text = True
                 findSword.isActive()
                 
             if mouse.click("RedKnightWalk"):
                 print 'Hit the Red Knight!' # Debug
-                gui.display_text = True
+                gui.display_text = True'''
     # Update everything
     everything.update()
 
