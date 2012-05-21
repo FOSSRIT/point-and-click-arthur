@@ -11,6 +11,8 @@
 # as such to divide between mid-conversation animations and the like, and are
 # commented appropriately. DIALOGs consist of ACTOR(s) and an list of their
 # dialog.
+#
+# Messages which are spoken by no-one are given an ACTOR of "Hail!".
 
 PLACES:
 -   ID: start
@@ -24,7 +26,7 @@ PLACES:
                     - "Oh, hello. Have you seen a sword around here?" 
     -   click_lake:
         -   DIALOG:
-            -   ACTOR: ""
+            -   ACTOR: "Hail!"
                 TEXT:
                     - "You found the magic sword, Excalibur!"
     -   give_arthur_sword:
@@ -217,6 +219,9 @@ PLACES:
                     - "Fine, we will find you a snack."
     -   give_soup:
         -   DIALOG:
+            -   ACTOR: "Bors"
+                TEXT:
+                    - "SOUP! I love soup, give me!"
             -   ACTOR: "Arthur"
                 TEXT:
                     - "Patience Sir Bors, here."
@@ -245,21 +250,75 @@ PLACES:
             -   ACTOR: "???"
                 TEXT:
                     - "Hello down there! Arthur, is that you?"
-        
-
-
-                
-
-        
-
-
-
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Who summons me, show yourself!"
+            -   ACTOR: "Agravain"
+                TEXT:
+                    - "Calm yourself Arthur, it's just me, Sir Agravain."
+                    - "I am up in this tree, looking for a certain dove."
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "Why, Sir Agravain?"
+            -   ACTOR: "Agravain"
+                TEXT:
+                    - "This dove was a gift from a fair maiden."
+                    - "It is the purest of white, an immaculate bird!"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "My Royal Finder and I will help you search!"
+                    - "We shall return when we find a clue."
+    -   give_agravain_dove:
+        -   DIALOG:
+            -   ACTOR: "Agravain"
+                TEXT:
+                    - "Is that... whoa!"
+        -   DIALOG: # Agravain falls from tree
+            -   ACTOR: "Agravain"
+                TEXT:
+                    - "Oof... I'm okay."
+                    - "Is that the purest of white doves?"
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "It would seem so."
+            -   ACTOR: "Agravain"
+                TEXT:
+                    - "Oh thank you! Now I can sleep at night,"
+                    - "knowing my honor is protected."
+                    - "How embarassing it would be if I had lost a gift."
+        -   DIALOG: # Bird starts singing
+            -   ACTOR: "Agravain"
+                TEXT:
+                    - "Such a beautiful song."
+                    - "My king, this bird is fit for someone of your splendor."
+                    - "Take this bird, a gift from a fair maiden,"
+                    - "as a token of my gratitude."
+            -   ACTOR: "Arthur"
+                TEXT:
+                    - "I humbly accept, thank you."
+            -   ACTOR: "Agravain"
+                TEXT:
+                    - "OH! I just remembered I promised Lancelot I would meet"
+                    - "him hours ago!"
+                    - "Farewell Arthur, see you later."
+            -   ACTOR: "Hail!"
+                TEXT:
+                    - "You were given a Singing Dove."
+                    - "The dove is singing a lovely song,"
+                    - "it could probably calm even the meanest spirits."
 ITEMS:
 -   ID: sword
     TEXT: "Excalibur"
 -   ID: wand
-    TEXT: "Merlin's wand"
-
+    TEXT: "Merlin's Wand"
+-   ID: girdle
+    TEXT: "Armored Girdle"
+-   ID: dove
+    TEXT: "Pure White Dove"
+-   ID: soup
+    TEXT: "Hot Soup"
+-   ID: dove_singing
+    TEXT: "Singing Dove"
 MISC:
 -   ID: title
     TEXT: "King Arthur"
