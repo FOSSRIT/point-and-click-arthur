@@ -155,6 +155,7 @@ class Graphics(object):
         self.custom_mouse.update()
 
     def load_all_sprites(self):
+        #HUGE list of sprites being added. 
         self.all_sprites.append(self.compile_images(
             48, 48, 'birdsprite.png', 20, True, 0, 250, 315, "Dove"))
         self.all_sprites.append(self.compile_images(
@@ -280,9 +281,9 @@ class Graphics(object):
     #finds the specific sprite, then returns the sprites rect for clicking purposes
         for arrays in self.all_sprites:
             for sprites in arrays:
-                if sprites.name == id:
+                if sprites.name == id and sprites.visible == True:
                     return sprites.rectangle
-        print "Error, could not find sprite by index"
+        print "Error, could not find sprite by index or sprite is currently set to visible."
         return pygame.draw.rect(everything.window_surface,(0, 0, 0), (0,0, 1, 1))
 
     def compile_images (self, tile_x, tile_y, str, fps,
@@ -377,7 +378,7 @@ class MouseEventHandler(object):
         self.my_rect = pygame.draw.rect(
             everything.window_surface, 0, (mouse_x, mouse_y, 5, 5))
     def click(self, sprite_name):
-        print 'Mouse clicked!' # Debug
+        #print 'Mouse clicked!' 
         if self.my_rect.colliderect(graphics.get_by_id(sprite_name)):
             return True
     def update(self, mouse_x, mouse_y):
@@ -418,8 +419,9 @@ clock = pygame.time.Clock()
 
 screenArray = []
 
-start = Screen("kingarthur.png")
+# Big list of screens being built. Feel free to make it a function if you want
 
+start = Screen("kingarthur.png")
 start.addSprite("Dove")
 start.isActive()
 screenArray.append(start)
@@ -547,9 +549,15 @@ while not quitting:
                         Lancelot_Day.isActive()
                     if mouse.click("GUIMapHitForest3"):
                         Merlin_Shack.isActive()
+                    if mouse.click("SwordWorld"):
+                        print ("Clicked on sword, collect it")
+                        graphics.getSprite("SwordWorld").visible = False
                         
                 if Gawain_West.active == True:
                     # Logic for Gawain forest
+                    if mouse.click("DoveWorld"):
+                        print ("Collect dove")
+                        graphics.getSprite("DoveWorld").visible = False
                     if mouse.click("GUIMapHitGawain1"):
                         findSword.isActive()
                     if mouse.click("GUIMapHitGawain2"):
@@ -560,10 +568,15 @@ while not quitting:
                     # Logic for Merlin's Shack
                     if mouse.click("GUIMapHitShack"):
                         findSword.isActive()
-                    #Click soup: graphics.getSprite("MerlinMagic").play_once()
+                    if mouse.click("Couldron"):
+                        print ("Collect the soup + relevent text")
+                    #Give wand to merlin: graphics.getSprite("MerlinMagic").play_once()
                         
                 if Lancelot_Day.active == True:
                     # Logic for Lancelot (Day)
+                    if mouse.click("WandWorld"):
+                        print ("Add wand to inventory now and play text. Also make WandWorld invisible")
+                        graphics.getSprite("WandWorld").visible = False
                     if mouse.click("GUIMapHitLancelot"):
                         findSword.isActive()
                     # if agravain and bors are helped: Lancelot_Night.active() (this should just skip the day one and jump to night... hopefully)
@@ -596,7 +609,7 @@ while not quitting:
                         Castle.isActive()
 
                 if Lancelot_Day.active == True:
-                    if mouse.click("GUIMapHitAgravain"):
+                    if mouse.click("GrailWorld"):
                         # play some text
                         Camelot.isActive()
                     #Logic for the last little interaction
