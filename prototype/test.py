@@ -134,6 +134,8 @@ class GUI(object):
             self.InventorySprite.render(everything.window_surface)
             graphics.getSprite("Textbox").render(everything.window_surface)
             everything.draw_text(txt, everything.font, everything.window_surface, 190,0)
+            everything.draw_text(txt2, everything.font, everything.window_surface, 190,20)
+            everything.draw_text(txt3, everything.font, everything.window_surface, 190,40)
         if SwordClicked == True:
             graphics.getSprite("SwordInventory").render(everything.window_surface)
         if DoveClicked == True:
@@ -525,6 +527,8 @@ GrailClciked = False
 BeltClicked = False
 notFirstScreen = False
 txt = " "
+txt2 = " "
+txt3 = " "
 
 ### START THE GAME LOOP
 
@@ -570,7 +574,9 @@ while not quitting:
                     notFirstScreen = True
                     for dialog_object in gametext["PLACES"]["start"]["ACTIONS"]["first_visit"]["DIALOG"]:
                         for text in dialog_object["TEXT"]:
-                            txt += "%s: '%s'" %(dialog_object["ACTOR"],text)
+                            txt = "%s: '%s'" %(dialog_object["ACTOR"],text)
+                            txt2 = "%s: '%s'" %(dialog_object["ACTOR"],text)
+                            txt3 = "%s: '%s'" %(dialog_object["ACTOR"],text)
                     txt
                     
                     #Logic for the first screen (arthur sword)
