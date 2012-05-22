@@ -73,11 +73,12 @@ class Everything(object):
     def update(self):
         self.window_surface.fill((0,0,0))
         game.update()       
-        gui.update()
         background.update()
         for screens in screenArray:
             screens.update()
+        gui.update()
         graphics.update()
+
 
 class Screen(object):
     def __init__ (self, bg):
@@ -117,25 +118,15 @@ class GUI(object):
     def __init__(self):
         self.rollover = False
         self.display_text = False
-        save_box = pygame.draw.rect(
-            everything.window_surface, (255, 255, 0), (1100, 0, 100, 50))
         save_text = everything.draw_text(
             "Save", everything.font,everything.window_surface, 1110, 10)
         # Current issue: Rect doesnt show up,
         # but this becomes irrelevant when the GUI becomes sprite based
         # oddshocks: it is possible that I fixed this, not sure
-        self.inventory = pygame.draw.rect(
-            everything.window_surface, (255, 255, 0), (300, 1000, 700, 180))
-        print 'Made GUI!' # Debug
+        self.InventorySprite = graphics.getSprite("GUIInventory")
+        
 
     def update(self):
-        if self.rollover == True:
-            everything.draw_text(
-                "Inventory", everything.font,
-                everything.window_surface, 300, 780) 
-            self.inventory = self.inventory.move(300, 820)
-        elif self.rollover == False:
-            self.inventory = self.inventory.move(300, 1000)
         if self.display_text == True:
             text_box = pygame.draw.rect(
                 everything.window_surface, (255, 255, 0), (300, 0, 700, 100))
@@ -145,6 +136,22 @@ class GUI(object):
         elif self.display_text == False:
             text_box = pygame.draw.rect(
                 everything.window_surface, (255, 255, 0), (300, 0, 0, 0))
+        self.InventorySprite.location = (100, 300, 100)                
+        self.InventorySprite.render(everything.window_surface)
+
+        graphics.getSprite("SwordInventory").render(everything.window_surface)
+        if DoveClicked == True:
+            graphics.getSprite("DoveInventory").render(everything.window_surface)
+        graphics.getSprite("DoveSingInventory").render(everything.window_surface)
+        graphics.getSprite("SoupInventory").render(everything.window_surface)
+        graphics.getSprite("WandInventory").render(everything.window_surface)
+        graphics.getSprite("GrailInventory").render(everything.window_surface)
+        graphics.getSprite("BeltInventory").render(everything.window_surface)
+
+        graphics.getSprite("Textbox").render(everything.window_surface)
+        
+
+        
 
 class Graphics(object):
     def __init__(self):
@@ -161,13 +168,13 @@ class Graphics(object):
         self.all_sprites.append(self.compile_images(
             64, 96, 'knightWALK.png', 20, True, 0, 200, 100, "RedKnightWalk"))
         self.all_sprites.append(self.compile_images(
-            64, 96, 'knightWALKGREEN.png', 20, True, 0, 700, 570, "GreenKnightWalk"))
+            64, 96, 'knightWALKGREEN.png', 20, True, 0, 650, 540, "GreenKnightWalk"))
         self.all_sprites.append(self.compile_images(
             64, 96, 'knightWALKBLUE.png', 20, True, 0, 400, 560, "BlueKnightWalk"))
         self.all_sprites.append(self.compile_images(
             64, 96, 'knightWALKMORDRED.png', 20, True, 0, 200, 100, "MordredWalk"))
         self.all_sprites.append(self.compile_images(
-            64, 96, 'knightWALKYELLOW.png', 20, True, 0, 700, 575, "YellowKnightWalk"))
+            64, 96, 'knightWALKYELLOW.png', 20, True, 0, 700, 560, "YellowKnightWalk"))
         self.all_sprites.append(self.compile_images(
             53, 97, 'arthurstand.png', 20, False, 0, 125, 565, "ArthurStand"))
         self.all_sprites.append(self.compile_images(
@@ -183,7 +190,7 @@ class Graphics(object):
         self.all_sprites.append(self.compile_images(
             126, 120, 'itemsINVENTORY.png', 20, False, 0, 500, 500, "InventoryItems"))
         self.all_sprites.append(self.compile_images(
-            120, 100, 'itemsWORLD.png', 20, True, 0, 800, 600, "SwordWorld"))
+            120, 100, 'itemsWORLD.png', 20, True, 0, 800, 550, "SwordWorld"))
         self.all_sprites.append(self.compile_images(
             120, 100, 'itemsWORLD.png', 20, True, 2, 700, 150, "DoveWorld"))
         self.getSprite("DoveWorld").my_start_sprite = 2
@@ -207,25 +214,26 @@ class Graphics(object):
         
         #AJ: The following are the icons for the inventory GUI. You'll need to position them accordingly. You can either do it here, or use animated Sprite move function to place them correctly later in the code
         #To change it now, edit the numbers after the 0, that's the x and y of the sprites
+        
         self.all_sprites.append(self.compile_images(
-            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "SwordInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 650, "SwordInventory"))
         self.all_sprites.append(self.compile_images(
-            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "SoupInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 650, "SoupInventory"))
         self.getSprite("SoupInventory").my_start_sprite = 1
         self.all_sprites.append(self.compile_images(
-            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "DoveInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 650, "DoveInventory"))
         self.getSprite("DoveInventory").my_start_sprite = 2
         self.all_sprites.append(self.compile_images(
-            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "DoveSingInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 500, "DoveSingInventory"))
         self.getSprite("DoveSingInventory").my_start_sprite = 3
         self.all_sprites.append(self.compile_images(
-            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "WandInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 500, "WandInventory"))
         self.getSprite("WandInventory").my_start_sprite = 4
         self.all_sprites.append(self.compile_images(
-            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "GrailInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 500, "GrailInventory"))
         self.getSprite("GrailInventory").my_start_sprite = 5
         self.all_sprites.append(self.compile_images(
-            700, 180, 'GUIInventory.png', 20, False, 0, 500, 500, "BeltInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 500, "BeltInventory"))
         self.getSprite("BeltInventory").my_start_sprite = 6
 
         #GUI Hit boxes, these are to move around the map. For children it's better to leave them visible, some turn visible only when the path opens
@@ -257,6 +265,13 @@ class Graphics(object):
             90, 90, 'GUIMaphit.png', 20, False, 1, 900, 700, "GUIMapHitKeep"))
         self.all_sprites.append(self.compile_images(
             90, 90, 'GUIMaphit.png', 20, False, 1, 900, 700, "GUIMapHitAgravain"))
+
+        self.all_sprites.append(self.compile_images(
+            700, 180, 'GUIInventory.png', 20, False, 0, 175, 650, "GUIInventory"))
+        self.all_sprites.append(self.compile_images(
+            700, 180, 'GUIInventory.png', 20, False, 0, 175, -50, "Textbox"))
+ 
+
  
     def getSprite(self, sprite):
         #print "Looking for " + sprite
@@ -499,7 +514,13 @@ screenArray.append(Agravain_Forest)
 Camelot = Screen ("banquethall.png")
 screenArray.append(Camelot)
 
-current_screen = 0
+SwordClicked = False;
+DoveClicked = False;
+CouldronClicked = False;
+WandClicked = False;
+GrailClicked = False;
+SwordClicked = False;
+SDoveClicked = False;
 
 ### START THE GAME LOOP
 
@@ -551,12 +572,14 @@ while not quitting:
                         Merlin_Shack.isActive()
                     if mouse.click("SwordWorld"):
                         print ("Clicked on sword, collect it")
+                        SwordClicked = True
                         graphics.getSprite("SwordWorld").visible = False
                         
                 if Gawain_West.active == True:
                     # Logic for Gawain forest
                     if mouse.click("DoveWorld"):
                         print ("Collect dove")
+                        DoveClicked = True
                         graphics.getSprite("DoveWorld").visible = False
                     if mouse.click("GUIMapHitGawain1"):
                         findSword.isActive()
@@ -569,6 +592,7 @@ while not quitting:
                     if mouse.click("GUIMapHitShack"):
                         findSword.isActive()
                     if mouse.click("Couldron"):
+                        CouldronClicked = True
                         print ("Collect the soup + relevent text")
                     #Give wand to merlin: graphics.getSprite("MerlinMagic").play_once()
                         
@@ -576,6 +600,7 @@ while not quitting:
                     # Logic for Lancelot (Day)
                     if mouse.click("WandWorld"):
                         print ("Add wand to inventory now and play text. Also make WandWorld invisible")
+                        WandClicked = True
                         graphics.getSprite("WandWorld").visible = False
                     if mouse.click("GUIMapHitLancelot"):
                         findSword.isActive()
@@ -604,12 +629,17 @@ while not quitting:
                         Castle.isActive()
 
                 if Agravain_Forest.active == True:
+                    if mouse.click("DoveInventory"):
+                        SDoveClicked = True
+                        DoveClicked = False
+                        
                     #Logic for Aggravain scene. Use dove on Agravain, the dove turns into the singing dove. Also a flag for Lancelot's quest (Must have helped Agravain and Bors)
                     if mouse.click("GUIMapHitAgravain"):
                         Castle.isActive()
 
-                if Lancelot_Day.active == True:
+                if Lancelot_Night.active == True:
                     if mouse.click("GrailWorld"):
+                        GrailClicked = True
                         # play some text
                         Camelot.isActive()
                     #Logic for the last little interaction
