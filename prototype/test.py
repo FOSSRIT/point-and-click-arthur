@@ -65,7 +65,7 @@ class Everything(object):
             WINDOW_HEIGHT))
         self.font = pygame.font
         pygame.font.init()
-        self.font = pygame.font.SysFont(None, 48)
+        self.font = pygame.font.SysFont(None, 36)
         pygame.display.set_caption('Point and Click Arthur')
         pygame.mouse.set_visible(False)
 
@@ -122,25 +122,18 @@ class MyMouse(object):
 class GUI(object):
     def __init__(self):
         self.display_text = False
+        txt = " "
         # Current issue: Rect doesnt show up,
         # but this becomes irrelevant when the GUI becomes sprite based
         # oddshocks: it is possible that I fixed this, not sure
         self.InventorySprite = graphics.getSprite("GUIInventory")
         
     def update(self):
-        if self.display_text == True:
-            text_box = pygame.draw.rect(
-                everything.window_surface, (255, 255, 0), (300, 0, 700, 100))
-            everything.draw_text(
-                "King Arthur: \"Welcome to my Game!\"", everything.font,
-                everything.window_surface, 310, 10) 
-        elif self.display_text == False:
-            text_box = pygame.draw.rect(
-                everything.window_surface, (255, 255, 0), (300, 0, 0, 0))
         self.InventorySprite.location = (100, 300, 100)
         if notFirstScreen == True:
             self.InventorySprite.render(everything.window_surface)
             graphics.getSprite("Textbox").render(everything.window_surface)
+            everything.draw_text(txt, everything.font, everything.window_surface, 190,0)
         if SwordClicked == True:
             graphics.getSprite("SwordInventory").render(everything.window_surface)
         if DoveClicked == True:
@@ -437,7 +430,6 @@ game = Game()
 background = Background(str="kingarthur.png")
 graphics = Graphics()
 gui = GUI()
-everything.draw_text("test", everything.font, everything.window_surface, 0,0)
 mouse = MouseEventHandler(0,0)
 clock = pygame.time.Clock()
 
@@ -532,6 +524,7 @@ SDoveClicked = False
 GrailClciked = False
 BeltClicked = False
 notFirstScreen = False
+txt = " "
 
 ### START THE GAME LOOP
 
@@ -568,7 +561,7 @@ while not quitting:
             #graphics.getSprite("SPRITE_NAME").visible = False //sets sprite to be invisible (or visible is True). Useful for inventory items that are collected
             #graphics.getSprite("SPRITE_NAME").play_once() //plays the animation exactly once and stops at the last frame
             #graphics.getSprite("SPRITE_NAME").play() //plays, loops
-            
+
                 if start.active == True:
                     findSword.isActive()
                     #Title screen code. This moves to the first screen, so put inits for the logic for screen 1 after here
@@ -577,9 +570,9 @@ while not quitting:
                     notFirstScreen = True
                     for dialog_object in gametext["PLACES"]["start"]["ACTIONS"]["first_visit"]["DIALOG"]:
                         for text in dialog_object["TEXT"]:
-                            txt = "%s: '%s'" %(dialog_object["ACTOR"],text)
-                    print txt
-                    everything.draw_text(txt, everything.font, everything.window_surface, 0,0)
+                            txt += "%s: '%s'" %(dialog_object["ACTOR"],text)
+                    txt
+                    
                     #Logic for the first screen (arthur sword)
                     if mouse.click("GUIMapHitForest1"):
                         Gawain_West.isActive()
