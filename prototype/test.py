@@ -65,7 +65,7 @@ class Everything(object):
             WINDOW_HEIGHT))
         self.font = pygame.font
         pygame.font.init()
-        self.font = pygame.font.SysFont(None, 36)
+        self.font = pygame.font.SysFont(None, 26)
         pygame.display.set_caption('Point and Click Arthur')
         pygame.mouse.set_visible(False)
 
@@ -136,6 +136,8 @@ class GUI(object):
             everything.draw_text(txt, everything.font, everything.window_surface, 190,0)
             everything.draw_text(txt2, everything.font, everything.window_surface, 190,20)
             everything.draw_text(txt3, everything.font, everything.window_surface, 190,40)
+            everything.draw_text(txt4, everything.font, everything.window_surface, 190,60)
+            everything.draw_text(txt5, everything.font, everything.window_surface, 190,80)
         if SwordClicked == True:
             graphics.getSprite("SwordInventory").render(everything.window_surface)
         if DoveClicked == True:
@@ -529,6 +531,8 @@ notFirstScreen = False
 txt = " "
 txt2 = " "
 txt3 = " "
+firstscreenvisit = False
+shackvisit = False
 
 ### START THE GAME LOOP
 
@@ -571,13 +575,21 @@ while not quitting:
                     #Title screen code. This moves to the first screen, so put inits for the logic for screen 1 after here
                     
                 if  findSword.active == True:
+                    
                     notFirstScreen = True
-                    for dialog_object in gametext["PLACES"]["start"]["ACTIONS"]["first_visit"]["DIALOG"]:
-                        for text in dialog_object["TEXT"]:
-                            txt = "%s: '%s'" %(dialog_object["ACTOR"],text)
-                            txt2 = "%s: '%s'" %(dialog_object["ACTOR"],text)
-                            txt3 = "%s: '%s'" %(dialog_object["ACTOR"],text)
-                    txt
+                    if firstscreenvisit == False:
+                        text_lines =[]
+                        for dialog_object in gametext["PLACES"]["start"]["ACTIONS"]["first_visit"]["DIALOG"]:
+                            for text in dialog_object["TEXT"]:
+                                print txt
+                                text_lines.append(text)
+                            
+                        txt = "%s: '%s'" %(dialog_object["ACTOR"],text_lines[0])
+                        txt2 = "%s: '%s'" %(dialog_object["ACTOR"],text_lines[1])
+                        txt3 = "%s: '%s'" %(dialog_object["ACTOR"],text_lines[2])
+                        txt4=" "
+                        txt5=" "
+                        firstscreenvisit = True
                     
                     #Logic for the first screen (arthur sword)
                     if mouse.click("GUIMapHitForest1"):
@@ -588,8 +600,32 @@ while not quitting:
                         Merlin_Shack.isActive()
                     if mouse.click("SwordWorld"):
                         print ("Clicked on sword, collect it")
+                        text_lines =[]
+                        for dialog_object in gametext["PLACES"]["start"]["ACTIONS"]["click_lake"]["DIALOG"]:
+                            for text in dialog_object["TEXT"]:
+                                print txt
+                                text_lines.append(text)
+                            
+                        txt = "%s: '%s'" %(dialog_object["ACTOR"],text_lines[0])
+                        txt2 =" "
+                        txt3 = " "
+                        txt4=" "
+                        txt5=" "
                         SwordClicked = True
                         graphics.getSprite("SwordWorld").visible = False
+                    if mouse.click("SwordInventory"):
+                        SwordClicked = False
+                        text_lines =[]
+                        for dialog_object in gametext["PLACES"]["start"]["ACTIONS"]["give_arthur_sword"]["DIALOG"]:
+                            for text in dialog_object["TEXT"]:
+                                print txt
+                                text_lines.append(text)
+                            
+                        txt = "%s: '%s'" %(dialog_object["ACTOR"],text_lines[0])
+                        txt2 =" "
+                        txt3 = " "
+                        txt4=" "
+                        txt5=" "
                         
                 if Gawain_West.active == True:
                     # Logic for Gawain forest
@@ -604,18 +640,64 @@ while not quitting:
                     #Give belt to Gawain: graphics.getSprite("GreenKnight").visible = False 
 
                 if Merlin_Shack.active == True:
+                    if shackvisit == False:
+                        text_lines =[]
+                        for dialog_object in gametext["PLACES"]["shack"]["ACTIONS"]["first_visit"]["DIALOG"]:
+                            for text in dialog_object["TEXT"]:
+                                print txt
+                                text_lines.append(text)
+                            
+                        txt = "%s: '%s'" %(dialog_object["ACTOR"],text_lines[0])
+                        txt2 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[1])
+                        txt3 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[2])
+                        txt4 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[3])
+                        txt5 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[4])
+                        
+                        shackvisit = True
                     # Logic for Merlin's Shack
                     if mouse.click("GUIMapHitShack"):
                         findSword.isActive()
                     if mouse.click("Couldron"):
                         CouldronClicked = True
+                        text_lines =[]
+                        for dialog_object in gametext["PLACES"]["shack"]["ACTIONS"]["click_soup"]["DIALOG"]:
+                            for text in dialog_object["TEXT"]:
+                                print txt
+                                text_lines.append(text)
+                            
+                        txt = "%s: '%s'" %(dialog_object["ACTOR"],text_lines[0])
+                        txt2 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[1])
+                        txt3 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[2])
+                        txt4 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[3])
+                        txt5 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[4])
                         print ("Collect the soup + relevent text")
-                    #Give wand to merlin: graphics.getSprite("MerlinMagic").play_once()
+
+                    if mouse.click("WandInventory"):
+                        WandClicked = False
+                        graphics.getSprite("MerlinMagic").play_once()
+                        text_lines =[]
+                        for dialog_object in gametext["PLACES"]["shack"]["ACTIONS"]["give_wand"]["DIALOG"]:
+                            for text in dialog_object["TEXT"]:
+                                print txt
+                                text_lines.append(text)
+                            
+                        txt = "%s: '%s'" %(dialog_object["ACTOR"],text_lines[0])
+                        txt2 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[1])
+                        txt3 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[2])
+                        txt4 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[3])
+                        txt5 ="%s: '%s'" %(dialog_object["ACTOR"],text_lines[4])
                         
                 if Lancelot_Day.active == True:
                     # Logic for Lancelot (Day)
                     if mouse.click("WandWorld"):
                         print ("Add wand to inventory now and play text. Also make WandWorld invisible")
+                        text_lines =[]
+                        for dialog_object in gametext["PLACES"]["lancelot"]["ACTIONS"]["click_on_wand"]["DIALOG"]:
+                            for text in dialog_object["TEXT"]:
+                                print txt
+                                text_lines.append(text)
+                            
+                        txt = "%s: '%s'" %(dialog_object["ACTOR"],text_lines[0])
                         WandClicked = True
                         graphics.getSprite("WandWorld").visible = False
                     if mouse.click("GUIMapHitLancelot"):
