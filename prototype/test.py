@@ -4,6 +4,11 @@ import random
 import sys
 from pygame.locals import *
 from random import randint
+import yaml
+import pprint
+
+with open("english.yaml") as stream:
+    gametext = yaml.load(stream)
 
 ### CONSTANTS
 WINDOW_WIDTH = 1028
@@ -64,12 +69,6 @@ class Everything(object):
         pygame.display.set_caption('Point and Click Arthur')
         pygame.mouse.set_visible(False)
 
-    def draw_text(self, text, font, surface, x, y):
-        text_obj = font.render(text, 1, TEXT_COLOR)
-        text_rect = text_obj.get_rect()
-        text_rect.topleft = (x, y)
-        surface.blit(text_obj, text_rect)
-
     def update(self):
         self.window_surface.fill((0,0,0))
         game.update()       
@@ -116,14 +115,17 @@ class MyMouse(object):
 
 class GUI(object):
     def __init__(self):
-        self.rollover = False
         self.display_text = False
-        save_text = everything.draw_text(
-            "Save", everything.font,everything.window_surface, 1110, 10)
         # Current issue: Rect doesnt show up,
         # but this becomes irrelevant when the GUI becomes sprite based
         # oddshocks: it is possible that I fixed this, not sure
         self.InventorySprite = graphics.getSprite("GUIInventory")
+
+    def draw_text(self, text, font, surface, x, y):
+        text_obj = font.render(text, 1, TEXT_COLOR)
+        text_rect = text_obj.get_rect()
+        text_rect.topleft = (x, y)
+        surface.blit(text_obj, text_rect)
         
 
     def update(self):
@@ -139,14 +141,20 @@ class GUI(object):
         self.InventorySprite.location = (100, 300, 100)                
         self.InventorySprite.render(everything.window_surface)
 
-        graphics.getSprite("SwordInventory").render(everything.window_surface)
+        if SwordClicked == True:
+            graphics.getSprite("SwordInventory").render(everything.window_surface)
         if DoveClicked == True:
             graphics.getSprite("DoveInventory").render(everything.window_surface)
-        graphics.getSprite("DoveSingInventory").render(everything.window_surface)
-        graphics.getSprite("SoupInventory").render(everything.window_surface)
-        graphics.getSprite("WandInventory").render(everything.window_surface)
-        graphics.getSprite("GrailInventory").render(everything.window_surface)
-        graphics.getSprite("BeltInventory").render(everything.window_surface)
+        if SDoveClicked == True:
+            graphics.getSprite("DoveSingInventory").render(everything.window_surface)
+        if CouldronClicked == True:
+            graphics.getSprite("SoupInventory").render(everything.window_surface)
+        if WandClicked == True:
+            graphics.getSprite("WandInventory").render(everything.window_surface)
+        if GrailClciked == True:
+            graphics.getSprite("GrailInventory").render(everything.window_surface)
+        if BeltClicked == True:
+            graphics.getSprite("BeltInventory").render(everything.window_surface)
 
         graphics.getSprite("Textbox").render(everything.window_surface)
         
@@ -216,24 +224,24 @@ class Graphics(object):
         #To change it now, edit the numbers after the 0, that's the x and y of the sprites
         
         self.all_sprites.append(self.compile_images(
-            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 650, "SwordInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 175, 650, "SwordInventory"))
         self.all_sprites.append(self.compile_images(
-            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 650, "SoupInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 275, 650, "SoupInventory"))
         self.getSprite("SoupInventory").my_start_sprite = 1
         self.all_sprites.append(self.compile_images(
-            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 650, "DoveInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 375, 650, "DoveInventory"))
         self.getSprite("DoveInventory").my_start_sprite = 2
         self.all_sprites.append(self.compile_images(
-            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 500, "DoveSingInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 375, 650, "DoveSingInventory"))
         self.getSprite("DoveSingInventory").my_start_sprite = 3
         self.all_sprites.append(self.compile_images(
-            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 500, "WandInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 550, 650, "WandInventory"))
         self.getSprite("WandInventory").my_start_sprite = 4
         self.all_sprites.append(self.compile_images(
-            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 500, "GrailInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 650, 650, "GrailInventory"))
         self.getSprite("GrailInventory").my_start_sprite = 5
         self.all_sprites.append(self.compile_images(
-            125, 120, 'itemsINVENTORY.png', 20, True, 0, 500, 500, "BeltInventory"))
+            125, 120, 'itemsINVENTORY.png', 20, True, 0, 730, 650, "BeltInventory"))
         self.getSprite("BeltInventory").my_start_sprite = 6
 
         #GUI Hit boxes, these are to move around the map. For children it's better to leave them visible, some turn visible only when the path opens
@@ -514,13 +522,14 @@ screenArray.append(Agravain_Forest)
 Camelot = Screen ("banquethall.png")
 screenArray.append(Camelot)
 
-SwordClicked = False;
-DoveClicked = False;
-CouldronClicked = False;
-WandClicked = False;
-GrailClicked = False;
-SwordClicked = False;
-SDoveClicked = False;
+SwordClicked = False
+DoveClicked = False
+CouldronClicked = False
+WandClicked = False
+GrailClicked = False
+SDoveClicked = False
+GrailClciked = False
+BeltClicked = False
 
 ### START THE GAME LOOP
 
@@ -563,6 +572,11 @@ while not quitting:
                     #Title screen code. This moves to the first screen, so put inits for the logic for screen 1 after here
                     
                 if  findSword.active == True:
+                    for dialog_object in gametext["PLACES"]["start"]["ACTIONS"]["first_visit"]["DIALOG"]:
+                        for text in dialog_object["TEXT"]:
+                            txt = "%s: '%s'" %(dialog_object["ACTOR"],text)
+                    print txt
+                    gui.draw_text(txt, everything.font, everything.window_surface, 175,0)
                     #Logic for the first screen (arthur sword)
                     if mouse.click("GUIMapHitForest1"):
                         Gawain_West.isActive()
